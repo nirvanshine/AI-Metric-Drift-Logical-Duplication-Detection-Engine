@@ -1,0 +1,34 @@
+{
+  "reports": [
+    {
+      "report_id": "rpt_nav_1",
+      "name": "NAV Dashboard",
+      "datasets": [
+        {
+          "dataset_id": "ds_nav_1",
+          "sql_text": "SELECT SUM(nav) AS NAV, COUNT(*) AS POSITION_COUNT FROM finance.positions WHERE trade_date = :as_of"
+        }
+      ]
+    },
+    {
+      "report_id": "rpt_nav_2",
+      "name": "NAV Summary",
+      "datasets": [
+        {
+          "dataset_id": "ds_nav_2",
+          "sql_text": "SELECT SUM(nav) AS NAV, COUNT(*) AS POSITION_COUNT FROM finance.positions WHERE settle_date = :as_of"
+        }
+      ]
+    },
+    {
+      "report_id": "rpt_return_1",
+      "name": "Return Report",
+      "datasets": [
+        {
+          "dataset_id": "ds_ret_1",
+          "sql_text": "SELECT SUM(pnl) / SUM(exposure) AS RETURN FROM finance.performance WHERE trade_date = :as_of"
+        }
+      ]
+    }
+  ]
+}

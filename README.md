@@ -67,3 +67,22 @@ from src.accelerator import run_analysis
 ```
 
 See implementation notes in `docs/accelerator_blueprint.md`.
+
+
+## Ready-to-use Demo Upload Files
+
+Use any of these files directly in the upload box:
+
+- `demo_data/duplicate_nav_reports.json`
+- `demo_data/duplicate_return_reports.json`
+- `demo_data/mixed_kpis.json`
+
+Quick demo link after starting app:
+
+- `http://localhost:8501`
+
+Start the app:
+
+```bash
+python app.py
+```

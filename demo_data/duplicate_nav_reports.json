@@ -1,0 +1,24 @@
+{
+  "reports": [
+    {
+      "report_id": "rpt_nav_trade",
+      "name": "NAV by Trade Date",
+      "datasets": [
+        {
+          "dataset_id": "ds_nav_trade",
+          "sql_text": "SELECT SUM(nav) AS NAV FROM finance.positions WHERE trade_date = :as_of AND region = 'US'"
+        }
+      ]
+    },
+    {
+      "report_id": "rpt_nav_settle",
+      "name": "NAV by Settle Date",
+      "datasets": [
+        {
+          "dataset_id": "ds_nav_settle",
+          "sql_text": "SELECT SUM(nav) AS NAV FROM finance.positions WHERE settle_date = :as_of AND region = 'US'"
+        }
+      ]
+    }
+  ]
+}

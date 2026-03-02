@@ -1,0 +1,24 @@
+{
+  "reports": [
+    {
+      "report_id": "rpt_return_gross",
+      "name": "Gross Return",
+      "datasets": [
+        {
+          "dataset_id": "ds_ret_gross",
+          "sql_text": "SELECT SUM(pnl) / SUM(exposure) AS RETURN FROM finance.performance WHERE trade_date = :as_of"
+        }
+      ]
+    },
+    {
+      "report_id": "rpt_return_net",
+      "name": "Net Return",
+      "datasets": [
+        {
+          "dataset_id": "ds_ret_net",
+          "sql_text": "SELECT SUM(pnl) / SUM(exposure) AS RETURN FROM finance.performance WHERE trade_date = :as_of AND instrument_type <> 'CASH'"
+        }
+      ]
+    }
+  ]
+}
