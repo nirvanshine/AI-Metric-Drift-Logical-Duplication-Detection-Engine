@@ -1,2 +1,69 @@
 # AI-Metric-Drift-Logical-Duplication-Detection-Engine
-Why This Is the Most Valuable One  Because in asset management firms like D&amp;C:  The same KPI exists in multiple reports  The same KPI is calculated differently  Filters vary (EOD vs T+1 vs settlement date)  Aggregations vary (gross vs net)  Cash inclusion differs  Benchmark logic varies
+
+Python accelerator scaffold for detecting SSRS KPI duplication, metric drift, and BI layer violations, then producing rationalization recommendations.
+
+## What's Included
+
+- Core domain entities for reports, metrics, clusters, drift findings, and recommendations.
+- Weighted scoring models aligned to the PRD/TRD.
+- Deterministic pipeline for clustering, drift detection, and recommendation actions.
+- Browser app (`app.py`) that accepts a report-spec JSON upload and runs analysis.
+- Demo ingestion utilities to parse uploaded report SQL and infer metric instances.
+- Unit tests for scoring, pipeline, and upload ingestion behavior.
+
+## Quick Start
+
+Run tests:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Run in browser:
+
+```bash
+python app.py
+```
+
+Then open `http://localhost:8501`.
+
+## Demo: Upload Report and Surface Duplication
+
+1. Start the app (`python app.py`).
+2. In browser, upload a JSON file with this shape:
+
+```json
+{
+  "reports": [
+    {
+      "report_id": "rpt_nav_trade",
+      "datasets": [
+        {
+          "dataset_id": "ds_nav",
+          "sql_text": "SELECT SUM(nav) AS NAV FROM finance.positions WHERE trade_date = :as_of"
+        }
+      ]
+    },
+    {
+      "report_id": "rpt_nav_settle",
+      "datasets": [
+        {
+          "dataset_id": "ds_nav",
+          "sql_text": "SELECT SUM(nav) AS NAV FROM finance.positions WHERE settle_date = :as_of"
+        }
+      ]
+    }
+  ]
+}
+```
+
+3. Click **Upload & Run Analysis**.
+4. Review output counters and JSON for detected clusters (duplication) and drift findings.
+
+Use in code:
+
+```python
+from src.accelerator import run_analysis
+```
+
+See implementation notes in `docs/accelerator_blueprint.md`.
