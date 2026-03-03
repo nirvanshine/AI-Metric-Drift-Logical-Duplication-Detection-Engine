@@ -26,7 +26,7 @@ Recommend Business Actions: Analyze metrics that shouldn't be separated and logi
   - generating recommendation actions
 - Unit tests for scoring and pipeline behavior.
 
-How it is Executed
+## How it is Executed
 The system is implemented as an "Accelerator Scaffold". Rather than using unreliable natural language modeling natively, the process leverages a deterministic, rule-based approach across 4 main modules. Here is the pipeline flow (src/accelerator/pipeline.py):
 
 Ingestion & Metric Formatting (models.py): Metrics and queries are gathered and transformed into a standardized canonical model, storing the dataset, SQL filters, underlying grain, object sources, and the core expression signature.
@@ -52,6 +52,30 @@ The current execution flow runs via the
 
 run_analysis()
  function, where teams can input collections of metrics locally and receive detailed output on the clusters, detected discrepancies, and actionable recommendations.
+
+## How it is consumed
+
+The project is built with a modular architecture so it can be consumed in multiple ways:
+
+1. A Web Application (Primary UI)
+By running python app.py, the project starts a lightweight local web server. If you navigate to http://localhost:8000 in your browser, you get a full frontend web interface (
+
+index.html
+). This allows non-technical users to upload JSON files via a file picker and view a visual, human-readable summary of the analysis in their browser.
+
+2. A REST API
+Behind the scenes of the web application, 
+
+app.py
+ also exposes a dedicated REST API endpoint at POST /api/analyze. You can use tools like curl, Postman, or external services to send POST requests containing the raw JSON arrays directly to this endpoint and receive the calculated clusters, drift findings, and recommendations back as a JSON response.
+
+3. A Python Module
+The actual "brain" of the engine lives inside the src/accelerator/ directory (pipeline.py, models.py, scoring.py, recommendations.py). This is a pure, decoupled Python package. You can import src.accelerator.pipeline into any other broader Python data engineering pipeline (like an Airflow DAG or a custom script) to process metrics programmatically without ever starting a web server.
+
+4. A CLI Script (for Demos)
+As referenced in your README changes, there is also a demo_run.py script. While it isn't a complex CLI tool with built-in argument parsing (like argparse or click), you can execute it from the command line (python demo_run.py) to quickly test the core module logic directly in your terminal without spinning up the server.
+
+In conclusion: It's fundamentally a Python Module, wrapped in a REST API, which is then consumed by a Web Application.
 
 
 

@@ -1,0 +1,1642 @@
+[
+  {
+    "metric_id": "MTR-2D3DFED9D091",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Slippage",
+    "expression_signature": "Avg(Fields!SlippageBps.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-0A128BCF88C0",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Duration",
+    "expression_signature": "IIF(IsNothing(Fields!Duration.Value), 0, Avg(Fields!Duration.Value))",
+    "grain": "sector",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.DIM_COUNTRY",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D41AEE6AC824",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Tracking_Error",
+    "expression_signature": "StDev(Fields!ActiveReturn.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-17A45A96E881",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Trade_Count",
+    "expression_signature": "IIF(IsNothing(Fields!Trade_Count.Value), 0, Count(Fields!TradeId.Value))",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-5A59D5D7A0CA",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Realized_Pnl",
+    "expression_signature": "Sum(Fields!RealizedPnL.Value)",
+    "grain": "region",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-3645F0A90BC2",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "(Avg(Fields!Return.Value) - Avg(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-D3320EFDCFE2",
+    "report_id": "Compliance_PostTrade_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Net_Flows",
+    "expression_signature": "IIF(IsNothing(Fields!Net_Flows.Value), 0, Sum(Fields!Subscriptions.Value) - Sum(Fields!Redemptions.Value))",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_RISK_EXPOSURE"
+    ]
+  },
+  {
+    "metric_id": "MTR-848CBF9A63F5",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Data_Quality_Score",
+    "expression_signature": "Avg(Fields!DQScore.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-F812A6D75E0B",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Net_Flows",
+    "expression_signature": "SUM(Fields!Subscriptions.Value) - SUM(Fields!Redemptions.Value)",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.DIM_SECTOR",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-BBE57AF4B78D",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Beta",
+    "expression_signature": "Avg(Fields!Beta.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "benchmarks->indexes->constituents",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-47E29D8F3412",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Compliance_Breaches",
+    "expression_signature": "Count(Fields!BreachId.Value)",
+    "grain": "account",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-874BACE76688",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Slippage",
+    "expression_signature": "Avg(Fields!SlippageBps.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-4EEB6D63F71C",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "(Avg(Fields!Return.Value) - Avg(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.DIM_COUNTRY",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-2CD87E3DF694",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Gross_Return",
+    "expression_signature": "IIF(IsNothing(Fields!Gross_Return.Value), 0, (Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value))",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-5BAFB42A9CAD",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Beta",
+    "expression_signature": "Avg(Fields!Beta.Value)",
+    "grain": "account",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-A585CCF30DA1",
+    "report_id": "Operations_Exception_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Unrealized_Pnl",
+    "expression_signature": "Sum(Fields!UnrealizedPnL.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-CA61375C928E",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Duration",
+    "expression_signature": "IIF(IsNothing(Fields!Duration.Value), 0, Avg(Fields!Duration.Value))",
+    "grain": "region",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-85280A16677A",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-AA0B7F0EDA0D",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "region",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-F5900C663EFE",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Realized_Pnl",
+    "expression_signature": "IIF(IsNothing(Fields!Realized_Pnl.Value), 0, Sum(Fields!RealizedPnL.Value))",
+    "grain": "week",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-9AF4612367E6",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "NAV",
+    "expression_signature": "IIF(IsNothing(Fields!NAV.Value), 0, Sum(Fields!NAV.Value))",
+    "grain": "security",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "compliance->trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-B4171234F4D5",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Pnl",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.DIM_REGION",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D3ABFD9BC4FC",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Data_Quality_Score",
+    "expression_signature": "Avg(Fields!DQScore.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "cashflows->accounts->funds",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-DE262223C950",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "NAV",
+    "expression_signature": "IIF(IsNothing(Fields!NAV.Value), 0, Sum(Fields!NAV.Value))",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "benchmarks->indexes->constituents",
+    "source_objects": [
+      "DW.FACT_RISK_EXPOSURE"
+    ]
+  },
+  {
+    "metric_id": "MTR-A88EA46C7ECC",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Data_Quality_Score",
+    "expression_signature": "Avg(Fields!DQScore.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-3DF2B9FBB048",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Realized_Pnl",
+    "expression_signature": "Sum(Fields!RealizedPnL.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "benchmarks->indexes->constituents",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-3A55CA70F419",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Country_Exposure",
+    "expression_signature": "Sum(Fields!MarketValue.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-E9D1354A374A",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.DIM_SECTOR",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D8E9ACF53CCE",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Yield",
+    "expression_signature": "Avg(Fields!Yield.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "cashflows->accounts->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-B78CAEFEE375",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Unrealized_Pnl",
+    "expression_signature": "Sum(Fields!UnrealizedPnL.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-CD0FC4142E59",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Country_Exposure",
+    "expression_signature": "Sum(Fields!MarketValue.Value)",
+    "grain": "region",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "benchmarks->indexes->constituents",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-37901290C6B7",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Compliance_Breaches",
+    "expression_signature": "Count(Fields!BreachId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-D7CD3F676410",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "country",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_COUNTRY",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-ECF58BDDA315",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "region",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D55CB7EF230A",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Slippage",
+    "expression_signature": "Avg(Fields!SlippageBps.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-73556E0B5271",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "region",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-581C3A8185DF",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Yield",
+    "expression_signature": "Avg(Fields!Yield.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.DIM_COUNTRY",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-569D571870AB",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "VaR_95",
+    "expression_signature": "Percentile(Fields!PnLDistribution.Value, 0.05) * -1",
+    "grain": "account",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-680B4DAAA665",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "region",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-5AB00CD4DE2E",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D103ECF7B63A",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Exception_Count",
+    "expression_signature": "Count(Fields!ExceptionId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_SECTOR",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-E57E2CAE81DB",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Tracking_Error",
+    "expression_signature": "IIF(IsNothing(Fields!Tracking_Error.Value), 0, StDev(Fields!ActiveReturn.Value))",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-D42557CC6B9C",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.DIM_SECTOR",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-B4950C6BDEB1",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "(Avg(Fields!Return.Value) - Avg(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-47A623DA456F",
+    "report_id": "Operations_Exception_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Pnl",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-ECB5BB674155",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "(Avg(Fields!Return.Value) - Avg(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-83B5FAE45243",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-E8F607E7A24C",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Net_Flows",
+    "expression_signature": "Sum(Fields!Subscriptions.Value) - Sum(Fields!Redemptions.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-B4A0F90D2630",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "VaR_95",
+    "expression_signature": "Percentile(Fields!PnLDistribution.Value, 0.05) * -1",
+    "grain": "sector",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-1F25867F8A78",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "cashflows->accounts->funds",
+    "source_objects": [
+      "DW.DIM_SECTOR",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-DAF399481087",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "month",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-7D18CA4A5ACF",
+    "report_id": "Operations_Exception_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Duration",
+    "expression_signature": "IIF(IsNothing(Fields!Duration.Value), 0, Avg(Fields!Duration.Value))",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "esg->security_master",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-CE81C5EE245E",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Pnl",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.DIM_REGION",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D88E32EC6493",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Slippage",
+    "expression_signature": "Avg(Fields!SlippageBps.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "compliance->trades->portfolios",
+    "source_objects": [
+      "DW.DIM_REGION",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-8B2A1E5955CE",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Trade_Notional",
+    "expression_signature": "Sum(Fields!Notional.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-D0027832DE3A",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Realized_Pnl",
+    "expression_signature": "Sum(Fields!RealizedPnL.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-9C2991035DCB",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Unrealized_Pnl",
+    "expression_signature": "SUM(Fields!UnrealizedPnL.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-7279CBC61FDE",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Pnl",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-227EEEF99581",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Yield",
+    "expression_signature": "IIF(IsNothing(Fields!Yield.Value), 0, Avg(Fields!Yield.Value))",
+    "grain": "fund",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "cashflows->accounts->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-4BC4280ED2A6",
+    "report_id": "Compliance_PostTrade_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Pnl",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "benchmarks->indexes->constituents",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-2560DA26CF7D",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Country_Exposure",
+    "expression_signature": "IIF(IsNothing(Fields!Country_Exposure.Value), 0, Sum(Fields!MarketValue.Value))",
+    "grain": "country",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-F8FDF67EF495",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Compliance_Breaches",
+    "expression_signature": "Count(Fields!BreachId.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "cashflows->accounts->funds",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-A3D2DABC3C0C",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Gross_Return",
+    "expression_signature": "IIF(IsNothing(Fields!Gross_Return.Value), 0, (Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value))",
+    "grain": "trade",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-CBFB0BF1667B",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Pnl",
+    "expression_signature": "IIF(IsNothing(Fields!Pnl.Value), 0, Sum(Fields!PnL.Value))",
+    "grain": "country",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->brokers",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-04A8DACCBA48",
+    "report_id": "Compliance_PostTrade_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.DIM_PORTFOLIO",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-C7A6CCB89D08",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Yield",
+    "expression_signature": "Avg(Fields!Yield.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "compliance->trades->portfolios",
+    "source_objects": [
+      "DW.DIM_PORTFOLIO",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-6D7FFC1C298A",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Tracking_Error",
+    "expression_signature": "StDev(Fields!ActiveReturn.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.DIM_COUNTRY",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-BCBEDDD01531",
+    "report_id": "Operations_Exception_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "ESG_Score",
+    "expression_signature": "Avg(Fields!ESGScore.Value)",
+    "grain": "country",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-74752CE07C6F",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "NAV",
+    "expression_signature": "IIF(IsNothing(Fields!NAV.Value), 0, Sum(Fields!NAV.Value))",
+    "grain": "account",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-CC51578D8F88",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "IIF(IsNothing(Fields!Sharpe_Ratio.Value), 0, (Avg(Fields!Return.Value) - Avg(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value))",
+    "grain": "country",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.FACT_COMPLIANCE_BREACHES"
+    ]
+  },
+  {
+    "metric_id": "MTR-BF91F8795E9E",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Sector_Exposure",
+    "expression_signature": "Sum(Fields!MarketValue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-6F256556F77A",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "ESG_Score",
+    "expression_signature": "Avg(Fields!ESGScore.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-1FDBCB981689",
+    "report_id": "Compliance_PostTrade_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "compliance->trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-49D4349CDC5E",
+    "report_id": "Compliance_PostTrade_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Country_Exposure",
+    "expression_signature": "Sum(Fields!MarketValue.Value)",
+    "grain": "country",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-67920F121816",
+    "report_id": "Accounting_NAV_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Realized_Pnl",
+    "expression_signature": "Sum(Fields!RealizedPnL.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-6006213ECB89",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Trade_Notional",
+    "expression_signature": "Sum(Fields!Notional.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-55A03864F02A",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-57ED8BBE45B2",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "(Average(Fields!Return.Value) - Average(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value)",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-1E019ACA8DDF",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Sharpe_Ratio",
+    "expression_signature": "(Avg(Fields!Return.Value) - Avg(Fields!RiskFreeRate.Value)) / StDev(Fields!Return.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-72C0CDE7C95E",
+    "report_id": "Regulatory_Reporting_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Yield",
+    "expression_signature": "Avg(Fields!Yield.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "cashflows->accounts->funds",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-9AE832DC2552",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "ESG_Score",
+    "expression_signature": "Avg(Fields!ESGScore.Value)",
+    "grain": "quarter",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-63405187D51A",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "account",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-844A51CF2221",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "DataSet_Risk",
+    "metric_name": "Gross_Return",
+    "expression_signature": "(Sum(Fields!EndingValue.Value) - Sum(Fields!BeginningValue.Value) + Sum(Fields!Income.Value)) / Sum(Fields!BeginningValue.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->brokers",
+    "source_objects": [
+      "DW.DIM_SECURITY_MASTER",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-0B15E69F0275",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Realized_Pnl",
+    "expression_signature": "Sum(Fields!RealizedPnL.Value)",
+    "grain": "security",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "compliance->trades->portfolios",
+    "source_objects": [
+      "DW.FACT_RISK_EXPOSURE"
+    ]
+  },
+  {
+    "metric_id": "MTR-798E6E223D7A",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Tracking_Error",
+    "expression_signature": "StDev(Fields!ActiveReturn.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pricing->security_master->curves",
+    "source_objects": [
+      "DW.DIM_SECTOR",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-FD5CD935B77F",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "day",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-2101646B692A",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Sector_Exposure",
+    "expression_signature": "Sum(Fields!MarketValue.Value)",
+    "grain": "week",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "risk->positions->risk_factors",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-BCA326070E8E",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "ESG_Score",
+    "expression_signature": "Avg(Fields!ESGScore.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.DIM_COUNTRY",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-1A347477B51D",
+    "report_id": "Performance_Attribution_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.FACT_ESG_SCORES",
+      "DW.DIM_SECURITY_MASTER"
+    ]
+  },
+  {
+    "metric_id": "MTR-C6F7FF80C7DD",
+    "report_id": "Alpha_Portal_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Unrealized_Pnl",
+    "expression_signature": "Sum(Fields!UnrealizedPnL.Value)",
+    "grain": "region",
+    "filters": [
+      "Parameters!Region.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-FBA8CAA842C2",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_PnL",
+    "metric_name": "Alpha",
+    "expression_signature": "Fields!PortfolioReturn.Value - Fields!BenchmarkReturn.Value",
+    "grain": "day",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "positions->security_master->issuer",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-99FE502B2036",
+    "report_id": "Executive_Dashboard_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Unrealized_Pnl",
+    "expression_signature": "Sum(Fields!UnrealizedPnL.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!Country.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "compliance->trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-53EF7418C504",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet3",
+    "metric_name": "Trade_Notional",
+    "expression_signature": "Sum(Fields!Notional.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_RISK_EXPOSURE"
+    ]
+  },
+  {
+    "metric_id": "MTR-C59384E74290",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Duration",
+    "expression_signature": "IIF(IsNothing(Fields!Duration.Value), 0, Avg(Fields!Duration.Value))",
+    "grain": "region",
+    "filters": [
+      "Parameters!RiskModel.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->orders->portfolios",
+    "source_objects": [
+      "DW.DIM_REGION",
+      "DW.FACT_POSITIONS"
+    ]
+  },
+  {
+    "metric_id": "MTR-D3DF15FA5475",
+    "report_id": "Trade_Blotter_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "Data_Quality_Score",
+    "expression_signature": "Average(Fields!DQScore.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_BENCHMARK_RETURNS"
+    ]
+  },
+  {
+    "metric_id": "MTR-5E9D07945542",
+    "report_id": "Compliance_PreTrade_SSRS",
+    "dataset_id": "DataSet_NAV",
+    "metric_name": "ESG_Score",
+    "expression_signature": "Avg(Fields!ESGScore.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!SecurityId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-4F843C283382",
+    "report_id": "Data_Quality_SSRS",
+    "dataset_id": "DataSet_Trades",
+    "metric_name": "Data_Quality_Score",
+    "expression_signature": "Avg(Fields!DQScore.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AccountId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.FACT_DATA_QUALITY",
+      "DW.DIM_DATA_DOMAIN"
+    ]
+  },
+  {
+    "metric_id": "MTR-3F0788D963D5",
+    "report_id": "Portfolio_Rebalancing_SSRS",
+    "dataset_id": "DataSet_Positions",
+    "metric_name": "Sector_Exposure",
+    "expression_signature": "IIF(IsNothing(Fields!Sector_Exposure.Value), 0, Sum(Fields!MarketValue.Value))",
+    "grain": "week",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds->accounts",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-2D2829D50175",
+    "report_id": "Compliance_PostTrade_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Data_Quality_Score",
+    "expression_signature": "Avg(Fields!DQScore.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!Sector.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "fx_rates->currencies",
+    "source_objects": [
+      "DW.DIM_ACCOUNT",
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-21FC4C4CDCF6",
+    "report_id": "Risk_Exposure_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "ESG_Score",
+    "expression_signature": "Avg(Fields!ESGScore.Value)",
+    "grain": "sector",
+    "filters": [
+      "Parameters!FundId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.DIM_PORTFOLIO",
+      "DW.FACT_POSITIONS"
+    ]
+  }
+]
