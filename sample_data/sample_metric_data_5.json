@@ -1,0 +1,2720 @@
+[
+  {
+    "metric_id": "05a5e880",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "1e3dd8d8",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d45f4855",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "78583eb4",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "12f36996",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->account",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "6d0a2752",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "57660149",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4c0e4e8f",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "3cb12ae3",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "aa71d141",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0c59189f",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8a633f24",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4c8bfee9",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "region='US'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "a18c1799",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0c7be208",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->accounts",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c9385b10",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "bb6ca35d",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "deec3362",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "df1c0ef0",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "516cc38e",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c3229fe9",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f1f5c48b",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "36b03d62",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "81555d73",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f06d569b",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0a8c1cfb",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "3855f5e1",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "5875fa93",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->subscriptions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2afd75af",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4ebdbcc6",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8ebff588",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0242e319",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "39d6b3cc",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->subscriptions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "38a7f5e6",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f9cd484b",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "e40ea89d",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "953f7a53",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "segment='Enterprise'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "fa16a50b",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "region='US'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c2512cb7",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "5909d4fc",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "b043f67c",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7080eb32",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->account",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "48ab0cf0",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "af238077",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "region='US'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "9ed3e456",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "76087104",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "6ab1f15e",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->account",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2586911c",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "3caf0ec7",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "80685513",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "5ba8c4e2",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "226cf283",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d2110248",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f5022a39",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "01949c8e",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d32168c8",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "segment='Enterprise'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "64eb54f7",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "6c017456",
+    "report_id": "Daily Ops",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d41755aa",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "124ba648",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "da7c393d",
+    "report_id": "Daily Ops",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8ec139e1",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "98c5cc14",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4f2165e7",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "23287f6f",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f2a5746d",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "428e5292",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0becfb8b",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "9e8d5c49",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "b9aeed91",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "34a5573a",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "97b7c7c2",
+    "report_id": "Daily Ops",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "b5b23e84",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "date >= '2023-01-01'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2a4ef259",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c5a4e76a",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "0885bcbc",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "9113b9ab",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "43858ea2",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "02ee0cd0",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "cc9e9fbf",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "154707a4",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "ec4167ff",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f214aa41",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "1b831c05",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d1f932db",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "903a8b8f",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c0252558",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "date >= '2023-01-01'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "faf7bee7",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->accounts",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "44c19fae",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7c1a60ed",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "78e1682e",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2f18e577",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2ef792ed",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->account",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "3617a266",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "segment='Enterprise'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "e1e5fff6",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "af8a6635",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "1200ffab",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0a1d64d7",
+    "report_id": "Daily Ops",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d02d1267",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "dd75cec9",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f5aa78dd",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7ee3e72a",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8f81403b",
+    "report_id": "Daily Ops",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "a93b7a4d",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "681d324e",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "e2d2dcdc",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->subscriptions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "fc10ea1d",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "region='US'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "5158a6f9",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4af5bc27",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "da183993",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d2316aa3",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2ea32104",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "72cf6c68",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "b786cd6b",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2866e383",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2c049578",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "14573743",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "cdde5fb7",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f25b6f1d",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f98bba7e",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f1580665",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "a9a594e9",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "036208ec",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "766500df",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4351c7fa",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8c140ab7",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "92f14b8a",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4bcbe4d0",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "804918e5",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f2420254",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d8ddbc26",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "9b09d841",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f68ecf69",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7fdc9f39",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2a803e10",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->subscriptions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "843c53fb",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "fd074ff8",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d9c447db",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "1fd201a2",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "76ea66b2",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "3fa26a75",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "62091030",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "5a073581",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8ad5e063",
+    "report_id": "Daily Ops",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7d9fddf9",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "date >= '2023-01-01'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "261fbba8",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "aebc7bfc",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "bdb69011",
+    "report_id": "Daily Ops",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "15029a9a",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "42bab9d4",
+    "report_id": "Daily Ops",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->account",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "ed4d1bef",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f94c5129",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "2e4b71a2",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "ac0908dd",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "62d1bf3a",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "7a974742",
+    "report_id": "Exec Summary",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [
+      "segment='Enterprise'"
+    ],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "454ecb2c",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "d28da453",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "59fdb9f8",
+    "report_id": "Daily Ops",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c23c37cc",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "afac333f",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "074c2ffd",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "3f9196f4",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "2425ccfb",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->subscriptions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f21696ac",
+    "report_id": "Daily Ops",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "c4fb3fc7",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "9df264ff",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "326750ec",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "region='US'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "84bb82bb",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "9d0f0732",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "44b8951b",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "a2d4addd",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c665cbad",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "31b17a7d",
+    "report_id": "Daily Ops",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0f550516",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "e557aa72",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "44cef027",
+    "report_id": "Exec Summary",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0c66952b",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "semantic.core"
+    ]
+  },
+  {
+    "metric_id": "3da1b8e6",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7ee0a241",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "30472ee5",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "is_active=TRUE"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "544435f8",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->accounts",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "5462bc4f",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "56e414f3",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "0eca3420",
+    "report_id": "Daily Ops",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->accounts",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "392e2d76",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "63bb8ed5",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "c3e0ac84",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8438030f",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "ad9a38c0",
+    "report_id": "Exec Summary",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "1f02b280",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->accounts",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "7f3671f1",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "8b5c8f89",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->subscriptions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "e75d5959",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "4a2c6a52",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "65bc7e0f",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [
+      "plan='Premium'"
+    ],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "a2a5e47b",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "582dec30",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->accounts",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "27604111",
+    "report_id": "Marketing ROI",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "644b58cd",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "f00cd356",
+    "report_id": "Sales Dashboard",
+    "dataset_id": "Finance_Ledger",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "day",
+    "filters": [
+      "status='closed'"
+    ],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "59594323",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Core_Sales",
+    "metric_name": "Active Users",
+    "expression_signature": "count_distinct(user_id)",
+    "grain": "month",
+    "filters": [],
+    "join_path_signature": "users->sessions",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "1310db74",
+    "report_id": "Exec Summary",
+    "dataset_id": "Marketing_Events",
+    "metric_name": "Revenue",
+    "expression_signature": "sum(revenue)",
+    "grain": "week",
+    "filters": [],
+    "join_path_signature": "sales->region",
+    "source_objects": [
+      "raw.events"
+    ]
+  },
+  {
+    "metric_id": "5c89fe0f",
+    "report_id": "Weekly Metrics",
+    "dataset_id": "Agg_Users",
+    "metric_name": "Churn Rate",
+    "expression_signature": "sum(churned)/count(users) + 0",
+    "grain": "day",
+    "filters": [],
+    "join_path_signature": "users->cancellations",
+    "source_objects": [
+      "raw.events"
+    ]
+  }
+]

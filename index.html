@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AI Metric Drift Detector</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eaeff2;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        h1 {
+            color: #0284c7;
+            text-align: center;
+        }
+
+        .description {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .upload-section {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .upload-btn:hover {
+            background: #0284c7;
+        }
+
+        .run-btn {
+            background: linear-gradient(to right, #059669, #10b981);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: opacity 0.2s;
+            display: none;
+        }
+
+        .run-btn:hover {
+            opacity: 0.9;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.06);
+        }
+
+        .file-name-display {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        h3 {
+            color: #334155;
+        }
+
+        /* Summary UI Styles */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #0284c7;
+        }
+
+        .stat-card.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .stat-card.danger {
+            border-left-color: #ef4444;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .explanation-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+            line-height: 1.6;
+        }
+
+        .explanation-box ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>AI Metric Drift Detector</h1>
+        <p class="description">Upload a JSON array of metrics to analyze duplication, drift, and bi-layer violations.
+        </p>
+
+        <div class="upload-section" id="upload-section">
+            <h3>Upload Metrics Data</h3>
+            <p>Select a JSON file containing the metrics to analyze.</p>
+            <input type="file" id="file-input" class="file-input" accept=".json" />
+            <label for="file-input" class="upload-btn">Choose JSON File</label>
+            <div id="file-name" class="file-name-display"></div>
+        </div>
+
+        <button onclick="runAnalysis()" class="run-btn" id="run-btn">Run Analysis on Uploaded File</button>
+        <div id="results" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        let uploadedData = null;
+
+        document.getElementById('file-input').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            document.getElementById('file-name').innerText = file.name;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    uploadedData = JSON.parse(e.target.result);
+                    document.getElementById('run-btn').style.display = 'block';
+                    document.getElementById('results').innerHTML = '<p style="color: #059669;">Successfully loaded <strong>' + uploadedData.length + '</strong> metrics from file.</p>';
+                } catch (err) {
+                    alert('Error parsing JSON file: ' + err.message);
+                    uploadedData = null;
+                    document.getElementById('run-btn').style.display = 'none';
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        async function runAnalysis() {
+            if (!uploadedData) return;
+
+            const btn = document.getElementById('run-btn');
+            const resultsDiv = document.getElementById('results');
+
+            btn.disabled = true;
+            btn.innerText = 'Analyzing uploaded data...';
+            resultsDiv.innerHTML = '<p style="text-align:center;">Processing metrics...</p>';
+
+            try {
+                const response = await fetch('/api/run', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(uploadedData)
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+
+                    const numMetrics = uploadedData.length;
+                    const numClusters = data.clusters ? data.clusters.length : 0;
+                    const numDrifts = data.drift_findings ? data.drift_findings.length : 0;
+                    const numRecs = data.recommendations ? data.recommendations.length : 0;
+
+                    // Identify the largest clusters for the summary narrative
+                    const clusterSizes = (data.clusters || []).map(c => c.members.length).sort((a, b) => b - a);
+                    const topClustersStr = clusterSizes.slice(0, 3).join(', ') + (clusterSizes.length > 3 ? ', ...' : '');
+
+                    // Categorize drift types found
+                    const driftTypes = new Set((data.drift_findings || []).map(d => d.drift_type));
+                    const driftTypesStr = Array.from(driftTypes).join(', ') || 'None';
+
+                    let summaryHtml = `
+                        <h2>Analysis Summary</h2>
+                        
+                        <div class="summary-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">${numMetrics}</div>
+                                <div class="stat-label">Total Metrics Scanned</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${numClusters}</div>
+                                <div class="stat-label">Actual Core Metrics (Clusters)</div>
+                            </div>
+                            <div class="stat-card ${numDrifts > 0 ? 'danger' : ''}">
+                                <div class="stat-value">${numDrifts}</div>
+                                <div class="stat-label">Drift Findings</div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div class="stat-value">${numRecs}</div>
+                                <div class="stat-label">Required Actions</div>
+                            </div>
+                        </div>
+
+                        <div class="explanation-box">
+                            <strong>What The Engine Found:</strong>
+                            <ul>
+                                <li><strong>Massive Duplication:</strong> Instead of ${numMetrics} unique metrics, the engine identified that these actually represent only <strong>${numClusters}</strong> underlying business concepts. The sizes of the largest metric groups are: [${topClustersStr}].</li>
+                                <li><strong>Metric Drift Detected:</strong> The engine caught <strong>${numDrifts}</strong> instances where supposedly identical metrics are calculating data differently. Specifically, we found variations in: <em>${driftTypesStr}</em>. Because of this, business users looking at different reports will see mismatching numbers for the same metric.</li>
+                                <li><strong>Architecture Violations:</strong> The analysis flagged that these metrics are being calculated in the BI Layer. The engine strongly recommends moving these ${numClusters} core metrics into a governed semantic view in Snowflake.</li>
+                            </ul>
+                            <p><em>Action Plan: Retire the ${numMetrics} duplicated metrics and replace them with ${numClusters} governed Semantic Views in Snowflake to ensure single-source-of-truth accuracy across your reports.</em></p>
+                        </div>
+                        
+                        <h3>Raw Actionable JSON Output</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+
+                    resultsDiv.innerHTML = summaryHtml;
+
+                } else {
+                    throw new Error(data.error || 'Server returned error');
+                }
+            } catch (err) {
+                resultsDiv.innerHTML = '<p style="color: red; font-weight: bold;">Error running analysis: ' + err.message + '</p>';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Run Analysis on Uploaded File';
+            }
+        }
+    </script>
+</body>
+
+</html>
