@@ -41,7 +41,31 @@ If needed, verify you are in the right folder:
 python -c "import os; print(os.getcwd())"
 ```
 
-### 2) Run tests (optional but recommended)
+### 2) Install dependencies (Windows local)
+
+> The current demo app uses Python standard library modules only, so there are no mandatory third-party packages for runtime.
+
+Create and activate a virtual environment (recommended):
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Upgrade pip and install optional dev/test dependencies (currently none required):
+
+```powershell
+py -m pip install --upgrade pip
+py -m pip install -r requirements.txt
+```
+
+If PowerShell blocks activation, run once as admin:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### 3) Run tests (optional but recommended)
 
 Run tests:
 
@@ -49,7 +73,7 @@ Run tests:
 python -m unittest discover -s tests
 ```
 
-### 3) Run in browser
+### 4) Run in browser
 
 Run in browser:
 

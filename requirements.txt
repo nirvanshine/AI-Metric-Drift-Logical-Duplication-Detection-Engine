@@ -1,0 +1,5 @@
+# Runtime dependencies
+# This project currently uses only Python standard library modules.
+
+# Test/development dependencies
+# (none required at this time)
