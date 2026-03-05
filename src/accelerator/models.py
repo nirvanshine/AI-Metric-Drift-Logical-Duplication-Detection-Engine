@@ -51,6 +51,7 @@ class MetricInstance:
     join_path_signature: str
     source_objects: List[str]
     parameters_impacting_metric: List[str] = field(default_factory=list)
+    embedding_vector: Optional[List[float]] = None
 
 
 @dataclass

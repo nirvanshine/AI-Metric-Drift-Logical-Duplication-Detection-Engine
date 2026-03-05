@@ -8,6 +8,13 @@ from .models import DriftFinding, DriftType, MetricCluster, MetricInstance, Reco
 from .recommendation import RecommendationInputs, choose_action, priority_score, rationale
 from .scoring import DriftSignals, drift_severity_score
 
+# Try to import advanced clustering; fall back to naive if unavailable
+try:
+    from .clustering import cluster_metrics_advanced
+    _USE_ADVANCED_CLUSTERING = True
+except ImportError:
+    _USE_ADVANCED_CLUSTERING = False
+
 
 def cluster_metrics(metrics: Iterable[MetricInstance]) -> List[MetricCluster]:
     grouped: Dict[Tuple[str, str], List[str]] = defaultdict(list)
@@ -129,10 +136,16 @@ def build_recommendations(
     return output
 
 
-def run_analysis(metrics: Iterable[MetricInstance]) -> dict:
+def run_analysis(metrics: Iterable[MetricInstance], use_advanced_clustering: bool = True) -> dict:
     metrics = list(metrics)
     metric_lookup = {m.metric_id: m for m in metrics}
-    clusters = cluster_metrics(metrics)
+
+    # Use advanced AI clustering if available, else fall back to naive
+    if use_advanced_clustering and _USE_ADVANCED_CLUSTERING:
+        clusters = cluster_metrics_advanced(metrics)
+    else:
+        clusters = cluster_metrics(metrics)
+
     findings = [finding for cluster in clusters for finding in detect_drift(cluster, metric_lookup)]
     recommendations = build_recommendations(clusters, findings, metric_lookup)
 
