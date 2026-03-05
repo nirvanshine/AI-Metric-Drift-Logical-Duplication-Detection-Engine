@@ -79,6 +79,109 @@ In conclusion: It's fundamentally a Python Module, wrapped in a REST API, which 
 
 
 
+
+### Input Field Definitions
+All of the fields below are expected in the array of metric elements. While technically optional in code (it defaults to "Unknown" if missing), you must provide them for the Engine's clustering and drift algorithms to correctly function:
+
+* **`metric_id`** *(string)*: 
+Definition: A unique identifier for the specific metric instance. 
+
+Purpose: Used by the engine to track exactly which metric is part of a duplicated cluster or has drifted. 
+
+Example: "c01c0cc2" or "sales_rev_001"
+
+* **`report_id`** *(string)*: The identifier or name of the source SSRS/BI report it originated from.
+Definition: The name or identifier of the report, dashboard, or visual where this metric is displayed to the user. 
+
+Purpose: Helps trace a bad or duplicated metric back to the exact dashboard where it lives so it can be fixed or retired. 
+
+Example: "Sales Dashboard", "Executive Summary", or an SSRS report path like "/Sales/Weekly_Revenue_Rpt"
+
+
+* **`dataset_id`** *(string)*: The identifier of the dataset within the report.
+Definition: The name or identifier of the specific data model, dataset, or query that powers the visual. 
+
+Purpose: Identifies the intermediate layer providing the data. In SSRS, this would be the specific <DataSet> name within the .rdl file. 
+
+Example: "Core_Sales", "Agg_Users", or "DataSet1"
+
+* **`metric_name`** *(string)*: The intended human-readable name of the KPI (e.g., "Sales Revenue").
+
+Definition: The human-read business name of the measure being calculated. 
+
+Purpose: The engine uses this (along with the calculation) to identify when two metrics are functionally identical but have different names, or have the exact same name but calculate the data differently (which causes confusion). 
+
+Example: "Active Users", "Net Revenue", "Churn Rate"
+
+* **`expression_signature`** *(string)*: The normalized formula, calculation, or Abstract Syntax Tree (AST) of the metric (e.g., `sum(amount)`).
+Definition: The actual mathematical formula, DAX, or SQL aggregation used to compute the metric's value. 
+
+Purpose: This is the most critical field. The AI compares these expressions to find metrics that are mathematically identical (duplication) or mathematically different when they shouldn't be (formula drift). 
+
+Example: "sum(revenue)", "count_distinct(user_id)", or SSRS expressions like "=Sum(Fields!SalesAmount.Value)"
+
+* **`grain`** *(string)*: The data aggregation level of the metric (e.g., `daily`, `monthly`, `account_level`). Drift in this field indicates Aggregation Drift.
+
+Definition: The level of detail or time aggregation at which the metric is evaluated. 
+
+Purpose: Used to detect Grain Drift. If one dashboard looks at "Revenue" by day and another looks at it by month, the engine flags this to ensure users don't compare mismatched numbers. 
+
+Example: "day", "week", "month", "transaction_level"
+
+
+* **`filters`** *(list of strings)*: An array of WHERE clauses or filter logic applied to the calculation. Differences here indicate Filter Drift.
+
+Definition: A list of conditions, WHERE clauses, or parameters applied specifically to this metric to restrict the data it calculates. 
+
+Purpose: Used to detect Filter Drift. If two "Revenue" metrics exist, but one has a filter ["region='US'"] and the other has ["is_active=TRUE"], the engine flags that these are actually calculating different things despite having the same name. 
+
+Example: ["date >= '2023-01-01'"], ["plan='Premium'"], or SSRS parameters like ["@StartDate"]
+
+* **`join_path_signature`** *(string)*: A representation of the database tables and joins calculating this data.
+
+Definition: A string representing how the underlying tables were joined together to get the data for this metric. 
+
+Purpose: Used to detect Join Drift. If two identical metrics calculate sum(revenue), but one gets there by joining sales->region and another by joining sales->account->region, the engine flags a risk that differing join logic might cause row explosion or dropped rows. 
+
+Example: "users->sessions", "sales->region"
+
+
+* **`source_objects`** *(list of strings)*: An array of strings representing the underlying database tables or views queried. *(Note: The Engine explicitly searches these names for the phrase "semantic view". If missing, it tags it as an ungoverned BI layer violation).*
+
+Definition: The raw, foundational database tables or views that the metric reads from. 
+
+Purpose: Identifies Architecture Violations. The engine checks if the metric is reading from raw, ungoverned tables (e.g., raw.events) rather than a governed semantic view (e.g., semantic.core). 
+
+Example: ["raw.events"], ["dbo.FactSales"], ["sales_db.public.transactions"]
+
+
+## output 
+
+[
+  {
+    "metric_id": "m1",
+    "report_id": "report_1",
+    "dataset_id": "dataset_1",
+    "metric_name": "Sales Revenue",
+    "expression_signature": "sum(amount)",
+    "grain": "daily",
+    "filters": ["status='active'", "region='NA'"],
+    "join_path_signature": "sales_table -> users_table",
+    "source_objects": ["sales_table", "users_table"]
+  },
+  {
+    "metric_id": "m2",
+    "report_id": "report_2",
+    "dataset_id": "dataset_1",
+    "metric_name": "Sales Revenue",
+    "expression_signature": "sum(amount)",
+    "grain": "monthly",
+    "filters": ["status='active'"],
+    "join_path_signature": "sales_table -> users_table",
+    "source_objects": ["sales_table", "users_table"]
+  }
+]
+
 ## Quick Start
 
 Run tests:
