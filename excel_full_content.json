@@ -1,0 +1,449 @@
+{
+  "Executive_Scorecard": [
+    [
+      "Executive Scorecard",
+      ""
+    ],
+    [
+      "Run: RUN-DEMO-2026-02-27-IST | Generated: 2026-02-27 13:00 IST",
+      ""
+    ],
+    [
+      "This demo output pack illustrates what the AI accelerator would produce from SSRS report artifacts and Snowflake metadata.",
+      ""
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "Metric",
+      "Value"
+    ],
+    [
+      "Reports scanned",
+      "3"
+    ],
+    [
+      "Datasets extracted",
+      "2"
+    ],
+    [
+      "KPIs inferred",
+      "5"
+    ],
+    [
+      "KPI clusters formed",
+      "4"
+    ],
+    [
+      "Drift findings flagged",
+      "3"
+    ],
+    [
+      "P1 recommendations",
+      "2"
+    ],
+    [
+      "Highest drift severity",
+      "78"
+    ]
+  ],
+  "Report_Inventory": [
+    [
+      "Report Inventory",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Run: RUN-DEMO-2026-02-27-IST | Generated: 2026-02-27 13:00 IST",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Report ID",
+      "Report Name",
+      "Folder",
+      "Owner",
+      "Last Modified",
+      "Datasets",
+      "Primary Domain"
+    ],
+    [
+      "RPT_001",
+      "Portfolio_Performance_Summary",
+      "/Finance/Performance/",
+      "BI_Team",
+      "2024-01-12",
+      "1",
+      "Performance"
+    ],
+    [
+      "RPT_002",
+      "Sector_Exposure_Detail",
+      "/FrontOffice/Exposure/",
+      "Risk_Team",
+      "2024-02-08",
+      "1",
+      "Risk/Exposure"
+    ],
+    [
+      "RPT_003",
+      "NAV_Reconciliation",
+      "/BackOffice/NAV/",
+      "Accounting_Team",
+      "2024-03-15",
+      "0",
+      "Accounting/NAV"
+    ]
+  ],
+  "KPI_Dictionary": [
+    [
+      "KPI Dictionary",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Run: RUN-DEMO-2026-02-27-IST | Generated: 2026-02-27 13:00 IST",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "KPI",
+      "Definition (inferred)",
+      "Grain",
+      "Primary Source",
+      "Computed In",
+      "Found In Reports",
+      "Risk Notes"
+    ],
+    [
+      "Total Return",
+      "Sum of return_amount by portfolio and date",
+      "portfolio_id, trade_date",
+      "FINANCE_DB.FINANCE.PERFORMANCE_FACT",
+      "Snowflake view / SSRS dataset",
+      "RPT_001",
+      "Ensure return_amount currency normalization"
+    ],
+    [
+      "Benchmark Return",
+      "Sum of benchmark_return by portfolio and date",
+      "portfolio_id, trade_date",
+      "FINANCE_DB.FINANCE.PERFORMANCE_FACT",
+      "Snowflake view / SSRS dataset",
+      "RPT_001",
+      "Benchmark selection/versioning"
+    ],
+    [
+      "Alpha",
+      "Sum(return_amount - benchmark_return) by portfolio and date",
+      "portfolio_id, trade_date",
+      "FINANCE_DB.PUBLIC.vw_portfolio_performance",
+      "Snowflake view",
+      "(candidate)",
+      "Avoid recomputation in BI"
+    ],
+    [
+      "Sector Exposure Value",
+      "Sum of market_value by portfolio and sector",
+      "portfolio_id, sector",
+      "RISK_DB.RISK.EXPOSURE_FACT",
+      "SSRS dataset (candidate move to Snowflake view)",
+      "RPT_002",
+      "Cash/derivatives inclusion rules"
+    ],
+    [
+      "NAV Value",
+      "NAV value per fund and nav_date",
+      "fund_id, nav_date",
+      "FINANCE_DB.PUBLIC.nav_fact",
+      "Snowflake table (loaded by proc)",
+      "RPT_003 (assumed)",
+      "Regulatory-sensitive; controls & audit trail"
+    ]
+  ],
+  "Metric_Clusters": [
+    [
+      "Metric Clusters",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Run: RUN-DEMO-2026-02-27-IST | Generated: 2026-02-27 13:00 IST",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Cluster ID",
+      "Metric Intent",
+      "Member Metrics",
+      "Reports",
+      "Similarity Score",
+      "Duplicate Count"
+    ],
+    [
+      "CL-01",
+      "Portfolio Performance (Return & Benchmark)",
+      "total_return, benchmark_return",
+      "RPT_001",
+      "0.92",
+      "0"
+    ],
+    [
+      "CL-02",
+      "Sector Exposure",
+      "exposure_value",
+      "RPT_002",
+      "0.89",
+      "0"
+    ],
+    [
+      "CL-03",
+      "NAV / Accounting",
+      "nav_value",
+      "RPT_003 (assumed)",
+      "0.86",
+      "0"
+    ],
+    [
+      "CL-04",
+      "Alpha",
+      "alpha",
+      "(none in SSRS sample)",
+      "0.81",
+      "0"
+    ]
+  ],
+  "Drift_Findings": [
+    [
+      "Drift Findings",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Run: RUN-DEMO-2026-02-27-IST | Generated: 2026-02-27 13:00 IST",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Finding ID",
+      "KPI",
+      "Type",
+      "What AI Detected",
+      "Impact",
+      "Recommendation",
+      "Severity (0-100)"
+    ],
+    [
+      "DR-01",
+      "Alpha",
+      "Layer violation risk",
+      "Alpha is available as a curated Snowflake view (vw_portfolio_performance) but is also derivable from report SQL (return_amount - benchmark_return).",
+      "If BI/SSRS recomputes Alpha inconsistently, executives may see conflicting ‘Alpha’ numbers across dashboards.",
+      "Standardize Alpha definition in Snowflake (vw_portfolio_performance) and prohibit recomputation in BI.",
+      "78"
+    ],
+    [
+      "DR-02",
+      "Sector Exposure Value",
+      "Definition ambiguity",
+      "Exposure is aggregated from exposure_fact without explicit rules for cash/derivatives inclusion and as-of date selection.",
+      "Exposure numbers can drift across teams if different filters (instrument_type, pricing date) are applied in different reports.",
+      "Define canonical exposure rules + create a governed Snowflake view with explicit filters and parameters.",
+      "71"
+    ],
+    [
+      "DR-03",
+      "NAV Value",
+      "Regulatory sensitivity",
+      "nav_fact tagged as Regulatory_Sensitive; derived reporting should preserve audit trail and refresh lineage (sp_refresh_nav).",
+      "Incorrect refresh lineage or manual overrides create audit risk.",
+      "Attach lineage metadata + implement data quality checks and run logging for NAV data marts.",
+      "74"
+    ]
+  ],
+  "Recommendations_Backlog": [
+    [
+      "Recommendations Backlog",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Run: RUN-DEMO-2026-02-27-IST | Generated: 2026-02-27 13:00 IST",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Backlog items are example recommendations based on detected drift risks and lineage opportunities.",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Item ID",
+      "Area",
+      "Action",
+      "Target Layer",
+      "Impacted Reports",
+      "Priority",
+      "Rationale",
+      "Owner"
+    ],
+    [
+      "REC-01",
+      "KPI Standardization",
+      "Create governed view vw_sector_exposure_canonical",
+      "Snowflake (Semantic Views)",
+      "RPT_002",
+      "P1 (0-30 days)",
+      "Locks exposure definition; reduces drift risk",
+      "Data/BI Lead"
+    ],
+    [
+      "REC-02",
+      "Layer Governance",
+      "Publish KPI policy: 'Calculate Once in Snowflake' + remove BI-side recomputation of Alpha",
+      "Governance",
+      "RPT_001 (future PBI)",
+      "P1 (0-30 days)",
+      "Prevents executive metric conflicts",
+      "Analytics Governance"
+    ],
+    [
+      "REC-03",
+      "Data Lineage",
+      "Enable NAV refresh lineage and quality checks (row count, freshness, reconciliation)",
+      "Snowflake (Ops/Monitoring)",
+      "RPT_003",
+      "P2 (30-60 days)",
+      "Regulatory-sensitive; improves auditability",
+      "Data Engineering"
+    ],
+    [
+      "REC-04",
+      "Report Rationalization",
+      "Cluster SSRS reports by persona and consolidate low-value variants",
+      "Reporting Portfolio",
+      "All",
+      "P2 (30-60 days)",
+      "Reduces migration scope and maintenance",
+      "Reporting Lead"
+    ]
+  ],
+  "How_to_Read": [
+    [
+      "How to Read This Output Pack"
+    ],
+    [
+      ""
+    ],
+    [
+      "1) Executive_Scorecard: high-level counts and top risks."
+    ],
+    [
+      "2) Report_Inventory: what was scanned from SSRS."
+    ],
+    [
+      "3) KPI_Dictionary: AI-inferred KPI definitions, grain, and source tables/views."
+    ],
+    [
+      "4) Metric_Clusters: metrics grouped by similarity (intent + expression)."
+    ],
+    [
+      "5) Drift_Findings: where the same KPI could diverge (formula/filter/join/layer)."
+    ],
+    [
+      "6) Recommendations_Backlog: concrete actions to standardize in Snowflake and reduce report sprawl."
+    ]
+  ]
+}

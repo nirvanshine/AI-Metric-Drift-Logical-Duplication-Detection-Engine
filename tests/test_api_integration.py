@@ -135,10 +135,13 @@ class APIIntegrationTests(unittest.TestCase):
         status, result = self._post_json("/api/run", payload)
         self.assertEqual(status, 200)
 
-        # These have different expression_signature so they land in DIFFERENT clusters
-        # (clustering is by name + expression_signature)
-        self.assertEqual(len(result["clusters"]), 2)
-        print("  [PASS] Formula difference creates separate clusters (by design)")
+        # Advanced clustering groups same-name metrics together regardless of
+        # expression differences, then detect_drift flags FORMULA drift within the cluster.
+        self.assertEqual(len(result["clusters"]), 1)
+        drift_types = [f["drift_type"] for f in result["drift_findings"]]
+        self.assertIn("formula", drift_types)
+        self.assertEqual(len(result["recommendations"]), 1)
+        print("  [PASS] Formula difference detected as FORMULA drift within a single cluster")
 
     def test_05_grain_drift_detection(self):
         """Two metrics with different grain --> GRAIN drift."""

@@ -27,6 +27,9 @@ class Report:
     name: str
     folder: str
     owner: Optional[str] = None
+    last_modified: Optional[str] = None
+    dataset_count: int = 0
+    primary_domain: Optional[str] = None
 
 
 @dataclass
@@ -59,6 +62,9 @@ class MetricCluster:
     cluster_id: str
     members: List[str]
     confidence_score: float
+    metric_intent: Optional[str] = None
+    reports: List[str] = field(default_factory=list)
+    duplicate_count: int = 0
 
 
 @dataclass
@@ -69,6 +75,9 @@ class DriftFinding:
     explanation: str
     severity_score: float
     impacted_reports: List[str]
+    kpi_name: Optional[str] = None
+    impact: Optional[str] = None
+    recommendation_text: Optional[str] = None
 
 
 @dataclass
@@ -80,6 +89,9 @@ class Recommendation:
     rationale: str
     target_layer: str
     owner: Optional[str] = None
+    area: Optional[str] = None
+    impacted_reports: List[str] = field(default_factory=list)
+    priority_label: Optional[str] = None
 
 
 @dataclass
@@ -98,3 +110,16 @@ class RunSummary:
     clusters_created: int
     drift_findings: int
     recommendations_created: int
+
+
+@dataclass
+class RunMetadata:
+    run_id: str
+    generated_at: str
+    reports_scanned: int
+    datasets_extracted: int
+    kpis_inferred: int
+    clusters_formed: int
+    drift_findings_count: int
+    p1_recommendations: int
+    highest_severity: float

@@ -14,7 +14,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             background: white;
             padding: 2rem;
@@ -80,6 +80,25 @@
             opacity: 0.9;
         }
 
+        .export-btn {
+            background: linear-gradient(to right, #7c3aed, #a855f7);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+            display: none;
+        }
+
+        .export-btn:hover {
+            opacity: 0.9;
+        }
+
         pre {
             background: #1e293b;
             color: #e2e8f0;
@@ -103,8 +122,8 @@
         /* Summary UI Styles */
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
             margin-bottom: 20px;
         }
 
@@ -123,6 +142,10 @@
             border-left-color: #ef4444;
         }
 
+        .stat-card.purple {
+            border-left-color: #7c3aed;
+        }
+
         .stat-value {
             font-size: 24px;
             font-weight: bold;
@@ -130,7 +153,7 @@
         }
 
         .stat-label {
-            font-size: 14px;
+            font-size: 13px;
             color: #64748b;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -150,14 +173,26 @@
             margin-top: 10px;
             padding-left: 20px;
         }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 24px 0;
+        }
+
+        .scorecard-meta {
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: right;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>AI Metric Drift Detector</h1>
-        <p class="description">Upload a JSON array of metrics to analyze duplication, drift, and bi-layer violations.
-        </p>
+        <p class="description">Upload a JSON array of metrics to analyze duplication, drift, and bi-layer violations.</p>
 
         <div class="upload-section" id="upload-section">
             <h3>Upload Metrics Data</h3>
@@ -168,6 +203,8 @@
         </div>
 
         <button onclick="runAnalysis()" class="run-btn" id="run-btn">Run Analysis on Uploaded File</button>
+        <button onclick="exportExcel()" class="export-btn" id="export-btn">Export Excel Output Pack</button>
+
         <div id="results" style="margin-top: 20px;"></div>
     </div>
 
@@ -185,11 +222,14 @@
                 try {
                     uploadedData = JSON.parse(e.target.result);
                     document.getElementById('run-btn').style.display = 'block';
-                    document.getElementById('results').innerHTML = '<p style="color: #059669;">Successfully loaded <strong>' + uploadedData.length + '</strong> metrics from file.</p>';
+                    document.getElementById('export-btn').style.display = 'none';
+                    document.getElementById('results').innerHTML =
+                        '<p style="color: #059669;">Successfully loaded <strong>' + uploadedData.length + '</strong> metrics from file.</p>';
                 } catch (err) {
                     alert('Error parsing JSON file: ' + err.message);
                     uploadedData = null;
                     document.getElementById('run-btn').style.display = 'none';
+                    document.getElementById('export-btn').style.display = 'none';
                 }
             };
             reader.readAsText(file);
@@ -199,10 +239,12 @@
             if (!uploadedData) return;
 
             const btn = document.getElementById('run-btn');
+            const exportBtn = document.getElementById('export-btn');
             const resultsDiv = document.getElementById('results');
 
             btn.disabled = true;
             btn.innerText = 'Analyzing uploaded data...';
+            exportBtn.style.display = 'none';
             resultsDiv.innerHTML = '<p style="text-align:center;">Processing metrics...</p>';
 
             try {
@@ -214,58 +256,8 @@
                 const data = await response.json();
 
                 if (response.ok) {
-
-                    const numMetrics = uploadedData.length;
-                    const numClusters = data.clusters ? data.clusters.length : 0;
-                    const numDrifts = data.drift_findings ? data.drift_findings.length : 0;
-                    const numRecs = data.recommendations ? data.recommendations.length : 0;
-
-                    // Identify the largest clusters for the summary narrative
-                    const clusterSizes = (data.clusters || []).map(c => c.members.length).sort((a, b) => b - a);
-                    const topClustersStr = clusterSizes.slice(0, 3).join(', ') + (clusterSizes.length > 3 ? ', ...' : '');
-
-                    // Categorize drift types found
-                    const driftTypes = new Set((data.drift_findings || []).map(d => d.drift_type));
-                    const driftTypesStr = Array.from(driftTypes).join(', ') || 'None';
-
-                    let summaryHtml = `
-                        <h2>Analysis Summary</h2>
-                        
-                        <div class="summary-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">${numMetrics}</div>
-                                <div class="stat-label">Total Metrics Scanned</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${numClusters}</div>
-                                <div class="stat-label">Actual Core Metrics (Clusters)</div>
-                            </div>
-                            <div class="stat-card ${numDrifts > 0 ? 'danger' : ''}">
-                                <div class="stat-value">${numDrifts}</div>
-                                <div class="stat-label">Drift Findings</div>
-                            </div>
-                            <div class="stat-card warning">
-                                <div class="stat-value">${numRecs}</div>
-                                <div class="stat-label">Required Actions</div>
-                            </div>
-                        </div>
-
-                        <div class="explanation-box">
-                            <strong>What The Engine Found:</strong>
-                            <ul>
-                                <li><strong>Massive Duplication:</strong> Instead of ${numMetrics} unique metrics, the engine identified that these actually represent only <strong>${numClusters}</strong> underlying business concepts. The sizes of the largest metric groups are: [${topClustersStr}].</li>
-                                <li><strong>Metric Drift Detected:</strong> The engine caught <strong>${numDrifts}</strong> instances where supposedly identical metrics are calculating data differently. Specifically, we found variations in: <em>${driftTypesStr}</em>. Because of this, business users looking at different reports will see mismatching numbers for the same metric.</li>
-                                <li><strong>Architecture Violations:</strong> The analysis flagged that these metrics are being calculated in the BI Layer. The engine strongly recommends moving these ${numClusters} core metrics into a governed semantic view in Snowflake.</li>
-                            </ul>
-                            <p><em>Action Plan: Retire the ${numMetrics} duplicated metrics and replace them with ${numClusters} governed Semantic Views in Snowflake to ensure single-source-of-truth accuracy across your reports.</em></p>
-                        </div>
-                        
-                        <h3>Raw Actionable JSON Output</h3>
-                        <pre>${JSON.stringify(data, null, 2)}</pre>
-                    `;
-
-                    resultsDiv.innerHTML = summaryHtml;
-
+                    resultsDiv.innerHTML = buildSummaryHTML(data, uploadedData.length);
+                    exportBtn.style.display = 'block';
                 } else {
                     throw new Error(data.error || 'Server returned error');
                 }
@@ -274,6 +266,99 @@
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'Run Analysis on Uploaded File';
+            }
+        }
+
+        function buildSummaryHTML(data, numMetrics) {
+            const sc = data.executive_scorecard || {};
+            const numClusters = sc.clusters_formed || (data.clusters ? data.clusters.length : 0);
+            const numDrifts   = sc.drift_findings_count || (data.drift_findings ? data.drift_findings.length : 0);
+            const numRecs     = data.recommendations ? data.recommendations.length : 0;
+            const numKPIs     = sc.kpis_inferred || 0;
+            const numReports  = sc.reports_scanned || 0;
+            const p1Count     = sc.p1_recommendations || 0;
+            const highSev     = sc.highest_severity != null ? sc.highest_severity.toFixed(1) : '0.0';
+            const runId       = sc.run_id ? sc.run_id.substring(0, 8) + '…' : '';
+            const genAt       = sc.generated_at || '';
+
+            const clusterSizes = (data.clusters || []).map(c => c.members.length).sort((a, b) => b - a);
+            const topClustersStr = clusterSizes.slice(0, 3).join(', ') + (clusterSizes.length > 3 ? ', …' : '');
+
+            const driftTypes = new Set((data.drift_findings || []).map(d => d.drift_type));
+            const driftTypesStr = Array.from(driftTypes).join(', ') || 'None';
+
+            return `
+                <h2>Executive Scorecard</h2>
+                ${runId ? '<div class="scorecard-meta">Run ' + runId + ' &nbsp;|&nbsp; ' + genAt + '</div>' : ''}
+
+                <div class="summary-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">${numReports || numMetrics}</div>
+                        <div class="stat-label">Reports Scanned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${numKPIs || numMetrics}</div>
+                        <div class="stat-label">KPIs Inferred</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${numClusters}</div>
+                        <div class="stat-label">Clusters Formed</div>
+                    </div>
+                    <div class="stat-card ${numDrifts > 0 ? 'danger' : ''}">
+                        <div class="stat-value">${numDrifts}</div>
+                        <div class="stat-label">Drift Findings</div>
+                    </div>
+                    <div class="stat-card ${p1Count > 0 ? 'warning' : ''}">
+                        <div class="stat-value">${p1Count}</div>
+                        <div class="stat-label">P1 Recommendations</div>
+                    </div>
+                    <div class="stat-card purple">
+                        <div class="stat-value">${highSev}</div>
+                        <div class="stat-label">Highest Severity</div>
+                    </div>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>What The Engine Found:</strong>
+                    <ul>
+                        <li><strong>Massive Duplication:</strong> Instead of ${numMetrics} metric instances, the engine identified only <strong>${numClusters}</strong> underlying business concepts. Largest cluster sizes: [${topClustersStr}].</li>
+                        <li><strong>Metric Drift Detected:</strong> The engine caught <strong>${numDrifts}</strong> instances where supposedly identical metrics calculate data differently. Drift types found: <em>${driftTypesStr}</em>.</li>
+                        <li><strong>Architecture Violations:</strong> Metrics are being calculated in the BI Layer. The engine recommends moving these ${numClusters} core metrics into governed Snowflake semantic views.</li>
+                    </ul>
+                    <p><em>Action Plan: Retire the ${numMetrics} duplicated metric instances and replace them with ${numClusters} governed Semantic Views in Snowflake for single-source-of-truth accuracy.</em></p>
+                </div>
+
+                <hr class="section-divider">
+                <h3>Raw JSON Output (All 7 Sections)</h3>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        async function exportExcel() {
+            const exportBtn = document.getElementById('export-btn');
+            exportBtn.disabled = true;
+            exportBtn.innerText = 'Generating Excel Pack…';
+
+            try {
+                const response = await fetch('/api/export', { method: 'GET' });
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error || 'Export failed');
+                }
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'AI_Rationalization_Output_Pack.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                alert('Export error: ' + err.message);
+            } finally {
+                exportBtn.disabled = false;
+                exportBtn.innerText = 'Export Excel Output Pack';
             }
         }
     </script>
