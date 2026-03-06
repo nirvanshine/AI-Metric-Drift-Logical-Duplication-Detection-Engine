@@ -14,7 +14,7 @@
         }
 
         .container {
-            max-width: 960px;
+            max-width: 1100px;
             margin: 0 auto;
             background: white;
             padding: 2rem;
@@ -22,16 +22,11 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
-        h1 {
-            color: #0284c7;
-            text-align: center;
-        }
+        h1 { color: #0284c7; text-align: center; }
+        h2 { color: #0f172a; margin-top: 28px; }
+        h3 { color: #334155; }
 
-        .description {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 2rem;
-        }
+        .description { text-align: center; color: #64748b; margin-bottom: 2rem; }
 
         .upload-section {
             background: #f8fafc;
@@ -42,150 +37,114 @@
             margin-bottom: 20px;
         }
 
-        .file-input {
-            display: none;
-        }
+        .file-input { display: none; }
 
         .upload-btn {
-            background: #0ea5e9;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
-            display: inline-block;
+            background: #0ea5e9; color: white; border: none;
+            padding: 10px 20px; border-radius: 6px; cursor: pointer;
+            font-size: 14px; margin-top: 10px; display: inline-block;
         }
-
-        .upload-btn:hover {
-            background: #0284c7;
-        }
+        .upload-btn:hover { background: #0284c7; }
 
         .run-btn {
             background: linear-gradient(to right, #059669, #10b981);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            width: 100%;
-            transition: opacity 0.2s;
-            display: none;
+            color: white; border: none; padding: 12px 24px; border-radius: 8px;
+            cursor: pointer; font-size: 16px; font-weight: bold;
+            width: 100%; transition: opacity 0.2s; display: none;
         }
+        .run-btn:hover { opacity: 0.9; }
 
-        .run-btn:hover {
-            opacity: 0.9;
-        }
-
-        .export-btn {
+        .view-btn {
             background: linear-gradient(to right, #7c3aed, #a855f7);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
-            transition: opacity 0.2s;
-            display: none;
+            color: white; border: none; padding: 12px 24px; border-radius: 8px;
+            cursor: pointer; font-size: 15px; font-weight: bold;
+            width: 100%; margin-top: 10px; transition: opacity 0.2s; display: none;
         }
+        .view-btn:hover { opacity: 0.9; }
 
-        .export-btn:hover {
-            opacity: 0.9;
-        }
+        .file-name-display { margin-top: 10px; font-weight: bold; color: #0f172a; }
 
-        pre {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.06);
-        }
-
-        .file-name-display {
-            margin-top: 10px;
-            font-weight: bold;
-            color: #0f172a;
-        }
-
-        h3 {
-            color: #334155;
-        }
-
-        /* Summary UI Styles */
+        /* Scorecard grid */
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px; margin-bottom: 20px;
         }
-
         .stat-card {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 8px;
+            background: #f8fafc; padding: 15px; border-radius: 8px;
             border-left: 4px solid #0284c7;
         }
-
-        .stat-card.warning {
-            border-left-color: #f59e0b;
-        }
-
-        .stat-card.danger {
-            border-left-color: #ef4444;
-        }
-
-        .stat-card.purple {
-            border-left-color: #7c3aed;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0f172a;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .stat-card.warning { border-left-color: #f59e0b; }
+        .stat-card.danger  { border-left-color: #ef4444; }
+        .stat-card.purple  { border-left-color: #7c3aed; }
+        .stat-value { font-size: 24px; font-weight: bold; color: #0f172a; }
+        .stat-label { font-size: 13px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .explanation-box {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            color: #1e3a8a;
-            line-height: 1.6;
+            background: #eff6ff; border: 1px solid #bfdbfe;
+            padding: 20px; border-radius: 8px; margin-bottom: 20px;
+            color: #1e3a8a; line-height: 1.6;
+        }
+        .explanation-box ul { margin-top: 10px; padding-left: 20px; }
+
+        .scorecard-meta { font-size: 12px; color: #94a3b8; text-align: right; margin-bottom: 8px; }
+
+        .section-divider { border: none; border-top: 1px solid #e2e8f0; margin: 28px 0; }
+
+        /* Section panels */
+        .report-section {
+            margin-bottom: 32px;
+        }
+        .section-title {
+            display: flex; align-items: center; gap: 10px;
+            background: #f1f5f9; padding: 10px 14px;
+            border-radius: 8px; margin-bottom: 10px;
+            border-left: 4px solid #0284c7;
+        }
+        .section-title h3 { margin: 0; color: #0f172a; font-size: 15px; }
+        .section-badge {
+            background: #0284c7; color: white; font-size: 11px;
+            padding: 2px 8px; border-radius: 12px; font-weight: bold;
         }
 
-        .explanation-box ul {
-            margin-top: 10px;
-            padding-left: 20px;
+        /* Tables */
+        .data-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid #e2e8f0; }
+        table {
+            width: 100%; border-collapse: collapse; font-size: 13px;
         }
+        thead tr { background: #0f172a; color: white; }
+        thead th { padding: 10px 12px; text-align: left; white-space: nowrap; font-weight: 600; }
+        tbody tr:nth-child(even) { background: #f8fafc; }
+        tbody tr:hover { background: #eff6ff; }
+        tbody td { padding: 8px 12px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
 
-        .section-divider {
-            border: none;
-            border-top: 1px solid #e2e8f0;
-            margin: 24px 0;
+        /* Severity / priority badges */
+        .badge {
+            display: inline-block; padding: 2px 8px; border-radius: 10px;
+            font-size: 11px; font-weight: bold;
         }
+        .badge-p1 { background: #fee2e2; color: #b91c1c; }
+        .badge-p2 { background: #fef3c7; color: #92400e; }
+        .badge-p3 { background: #dcfce7; color: #166534; }
+        .badge-formula { background: #fce7f3; color: #9d174d; }
+        .badge-filter  { background: #ede9fe; color: #5b21b6; }
+        .badge-join    { background: #e0f2fe; color: #075985; }
+        .badge-grain   { background: #fef9c3; color: #854d0e; }
+        .badge-layer   { background: #fee2e2; color: #991b1b; }
 
-        .scorecard-meta {
-            font-size: 12px;
-            color: #94a3b8;
-            text-align: right;
-            margin-bottom: 8px;
+        /* How-to-read cards */
+        .how-to-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
         }
+        .how-to-card {
+            background: #f8fafc; border: 1px solid #e2e8f0;
+            border-radius: 8px; padding: 14px;
+        }
+        .how-to-card strong { color: #0284c7; display: block; margin-bottom: 6px; font-size: 13px; }
+        .how-to-card p { margin: 0; color: #475569; font-size: 13px; line-height: 1.5; }
+
+        .empty-notice { color: #94a3b8; font-style: italic; padding: 10px; }
     </style>
 </head>
 
@@ -194,7 +153,7 @@
         <h1>AI Metric Drift Detector</h1>
         <p class="description">Upload a JSON array of metrics to analyze duplication, drift, and bi-layer violations.</p>
 
-        <div class="upload-section" id="upload-section">
+        <div class="upload-section">
             <h3>Upload Metrics Data</h3>
             <p>Select a JSON file containing the metrics to analyze.</p>
             <input type="file" id="file-input" class="file-input" accept=".json" />
@@ -203,33 +162,33 @@
         </div>
 
         <button onclick="runAnalysis()" class="run-btn" id="run-btn">Run Analysis on Uploaded File</button>
-        <button onclick="exportExcel()" class="export-btn" id="export-btn">Export Excel Output Pack</button>
+        <button onclick="viewFullReport()" class="view-btn" id="view-btn">View Full Output Report</button>
 
         <div id="results" style="margin-top: 20px;"></div>
     </div>
 
     <script>
         let uploadedData = null;
+        let lastResult   = null;
 
         document.getElementById('file-input').addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (!file) return;
-
             document.getElementById('file-name').innerText = file.name;
-
             const reader = new FileReader();
             reader.onload = function (e) {
                 try {
                     uploadedData = JSON.parse(e.target.result);
-                    document.getElementById('run-btn').style.display = 'block';
-                    document.getElementById('export-btn').style.display = 'none';
+                    lastResult   = null;
+                    document.getElementById('run-btn').style.display  = 'block';
+                    document.getElementById('view-btn').style.display = 'none';
                     document.getElementById('results').innerHTML =
-                        '<p style="color: #059669;">Successfully loaded <strong>' + uploadedData.length + '</strong> metrics from file.</p>';
+                        '<p style="color:#059669;">Successfully loaded <strong>' + uploadedData.length + '</strong> metrics from file.</p>';
                 } catch (err) {
                     alert('Error parsing JSON file: ' + err.message);
                     uploadedData = null;
-                    document.getElementById('run-btn').style.display = 'none';
-                    document.getElementById('export-btn').style.display = 'none';
+                    document.getElementById('run-btn').style.display  = 'none';
+                    document.getElementById('view-btn').style.display = 'none';
                 }
             };
             reader.readAsText(file);
@@ -238,14 +197,14 @@
         async function runAnalysis() {
             if (!uploadedData) return;
 
-            const btn = document.getElementById('run-btn');
-            const exportBtn = document.getElementById('export-btn');
+            const btn       = document.getElementById('run-btn');
+            const viewBtn   = document.getElementById('view-btn');
             const resultsDiv = document.getElementById('results');
 
             btn.disabled = true;
             btn.innerText = 'Analyzing uploaded data...';
-            exportBtn.style.display = 'none';
-            resultsDiv.innerHTML = '<p style="text-align:center;">Processing metrics...</p>';
+            viewBtn.style.display = 'none';
+            resultsDiv.innerHTML  = '<p style="text-align:center;">Processing metrics...</p>';
 
             try {
                 const response = await fetch('/api/run', {
@@ -256,41 +215,50 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    resultsDiv.innerHTML = buildSummaryHTML(data, uploadedData.length);
-                    exportBtn.style.display = 'block';
+                    lastResult = data;
+                    resultsDiv.innerHTML = buildScorecardHTML(data, uploadedData.length);
+                    viewBtn.style.display = 'block';
                 } else {
                     throw new Error(data.error || 'Server returned error');
                 }
             } catch (err) {
-                resultsDiv.innerHTML = '<p style="color: red; font-weight: bold;">Error running analysis: ' + err.message + '</p>';
+                resultsDiv.innerHTML = '<p style="color:red;font-weight:bold;">Error running analysis: ' + err.message + '</p>';
             } finally {
-                btn.disabled = false;
+                btn.disabled  = false;
                 btn.innerText = 'Run Analysis on Uploaded File';
             }
         }
 
-        function buildSummaryHTML(data, numMetrics) {
-            const sc = data.executive_scorecard || {};
-            const numClusters = sc.clusters_formed || (data.clusters ? data.clusters.length : 0);
-            const numDrifts   = sc.drift_findings_count || (data.drift_findings ? data.drift_findings.length : 0);
-            const numRecs     = data.recommendations ? data.recommendations.length : 0;
-            const numKPIs     = sc.kpis_inferred || 0;
-            const numReports  = sc.reports_scanned || 0;
-            const p1Count     = sc.p1_recommendations || 0;
+        function viewFullReport() {
+            if (!lastResult) return;
+            const scorecardHTML = buildScorecardHTML(lastResult, uploadedData ? uploadedData.length : 0);
+            const detailHTML    = buildDetailHTML(lastResult);
+            document.getElementById('results').innerHTML = scorecardHTML + detailHTML;
+            document.getElementById('view-btn').innerText = 'Refresh Full Report';
+        }
+
+        /* ------------------------------------------------------------------ */
+        /* Scorecard section (shown immediately after Run)                      */
+        /* ------------------------------------------------------------------ */
+        function buildScorecardHTML(data, numMetrics) {
+            const sc         = data.executive_scorecard || {};
+            const numClusters = sc.clusters_formed       ?? (data.clusters       ? data.clusters.length       : 0);
+            const numDrifts   = sc.drift_findings_count   ?? (data.drift_findings ? data.drift_findings.length : 0);
+            const numKPIs     = sc.kpis_inferred          ?? 0;
+            const numReports  = sc.reports_scanned        ?? 0;
+            const p1Count     = sc.p1_recommendations     ?? 0;
             const highSev     = sc.highest_severity != null ? sc.highest_severity.toFixed(1) : '0.0';
             const runId       = sc.run_id ? sc.run_id.substring(0, 8) + '…' : '';
             const genAt       = sc.generated_at || '';
 
-            const clusterSizes = (data.clusters || []).map(c => c.members.length).sort((a, b) => b - a);
-            const topClustersStr = clusterSizes.slice(0, 3).join(', ') + (clusterSizes.length > 3 ? ', …' : '');
-
-            const driftTypes = new Set((data.drift_findings || []).map(d => d.drift_type));
-            const driftTypesStr = Array.from(driftTypes).join(', ') || 'None';
+            const clusterSizes   = (data.clusters || []).map(c => c.members.length).sort((a, b) => b - a);
+            const topStr         = clusterSizes.slice(0, 3).join(', ') + (clusterSizes.length > 3 ? ', …' : '');
+            const driftTypes     = new Set((data.drift_findings || []).map(d => d.drift_type));
+            const driftTypesStr  = Array.from(driftTypes).join(', ') || 'None';
 
             return `
                 <h2>Executive Scorecard</h2>
                 ${runId ? '<div class="scorecard-meta">Run ' + runId + ' &nbsp;|&nbsp; ' + genAt + '</div>' : ''}
-
                 <div class="summary-grid">
                     <div class="stat-card">
                         <div class="stat-value">${numReports || numMetrics}</div>
@@ -317,49 +285,141 @@
                         <div class="stat-label">Highest Severity</div>
                     </div>
                 </div>
-
                 <div class="explanation-box">
                     <strong>What The Engine Found:</strong>
                     <ul>
-                        <li><strong>Massive Duplication:</strong> Instead of ${numMetrics} metric instances, the engine identified only <strong>${numClusters}</strong> underlying business concepts. Largest cluster sizes: [${topClustersStr}].</li>
-                        <li><strong>Metric Drift Detected:</strong> The engine caught <strong>${numDrifts}</strong> instances where supposedly identical metrics calculate data differently. Drift types found: <em>${driftTypesStr}</em>.</li>
-                        <li><strong>Architecture Violations:</strong> Metrics are being calculated in the BI Layer. The engine recommends moving these ${numClusters} core metrics into governed Snowflake semantic views.</li>
+                        <li><strong>Duplication:</strong> ${numMetrics} metric instances reduced to <strong>${numClusters}</strong> underlying business concepts. Largest cluster sizes: [${topStr}].</li>
+                        <li><strong>Drift:</strong> <strong>${numDrifts}</strong> instances where identical-looking metrics calculate data differently. Types found: <em>${driftTypesStr}</em>.</li>
+                        <li><strong>Architecture:</strong> Metrics computed in BI layer — recommend moving ${numClusters} core KPIs into governed Snowflake semantic views.</li>
                     </ul>
-                    <p><em>Action Plan: Retire the ${numMetrics} duplicated metric instances and replace them with ${numClusters} governed Semantic Views in Snowflake for single-source-of-truth accuracy.</em></p>
-                </div>
-
-                <hr class="section-divider">
-                <h3>Raw JSON Output (All 7 Sections)</h3>
-                <pre>${JSON.stringify(data, null, 2)}</pre>
-            `;
+                </div>`;
         }
 
-        async function exportExcel() {
-            const exportBtn = document.getElementById('export-btn');
-            exportBtn.disabled = true;
-            exportBtn.innerText = 'Generating Excel Pack…';
+        /* ------------------------------------------------------------------ */
+        /* Detailed 7-section tables                                            */
+        /* ------------------------------------------------------------------ */
+        function esc(val) {
+            if (val == null) return '';
+            return String(val)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
 
-            try {
-                const response = await fetch('/api/export', { method: 'GET' });
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.error || 'Export failed');
-                }
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'AI_Rationalization_Output_Pack.xlsx';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            } catch (err) {
-                alert('Export error: ' + err.message);
-            } finally {
-                exportBtn.disabled = false;
-                exportBtn.innerText = 'Export Excel Output Pack';
-            }
+        function joinArr(val) {
+            return Array.isArray(val) ? val.join(', ') : esc(val);
+        }
+
+        function driftBadge(type) {
+            const map = { formula:'badge-formula', filter:'badge-filter', join:'badge-join', grain:'badge-grain', layer_violation:'badge-layer' };
+            return `<span class="badge ${map[type] || ''}">${esc(type)}</span>`;
+        }
+
+        function priorityBadge(label) {
+            if (!label) return '';
+            const cls = label.startsWith('P1') ? 'badge-p1' : label.startsWith('P2') ? 'badge-p2' : 'badge-p3';
+            return `<span class="badge ${cls}">${esc(label)}</span>`;
+        }
+
+        function makeTable(headers, rows, rowFn) {
+            if (!rows || rows.length === 0)
+                return '<p class="empty-notice">No data.</p>';
+            const ths = headers.map(h => `<th>${h}</th>`).join('');
+            const trs = rows.map(r => `<tr>${rowFn(r)}</tr>`).join('');
+            return `<div class="data-table-wrap"><table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div>`;
+        }
+
+        function sectionPanel(title, badge, content) {
+            return `
+                <div class="report-section">
+                    <div class="section-title">
+                        <h3>${title}</h3>
+                        ${badge !== null ? `<span class="section-badge">${badge}</span>` : ''}
+                    </div>
+                    ${content}
+                </div>`;
+        }
+
+        function buildDetailHTML(data) {
+            let html = '<hr class="section-divider"><h2>Full Output Report</h2>';
+
+            /* 1. Report Inventory */
+            html += sectionPanel('Report Inventory', (data.report_inventory || []).length,
+                makeTable(
+                    ['Report ID', 'Name', 'Folder', 'Owner', 'Last Modified', 'Datasets', 'Domain'],
+                    data.report_inventory,
+                    r => `<td>${esc(r.report_id)}</td><td>${esc(r.name)}</td><td>${esc(r.folder)}</td>
+                          <td>${esc(r.owner)}</td><td>${esc(r.last_modified)}</td>
+                          <td>${esc(r.dataset_count)}</td><td>${esc(r.primary_domain)}</td>`
+                )
+            );
+
+            /* 2. KPI Dictionary */
+            html += sectionPanel('KPI Dictionary', (data.kpi_dictionary || []).length,
+                makeTable(
+                    ['KPI Name', 'Definition', 'Grain', 'Primary Source', 'Layer', 'Found In Reports', 'Risk Notes'],
+                    data.kpi_dictionary,
+                    r => `<td><strong>${esc(r.kpi_name)}</strong></td>
+                          <td>${esc(r.inferred_definition)}</td><td>${esc(r.grain)}</td>
+                          <td>${esc(r.primary_source)}</td><td>${esc(r.computed_in_layer)}</td>
+                          <td>${esc(joinArr(r.found_in_reports))}</td><td>${esc(r.risk_notes)}</td>`
+                )
+            );
+
+            /* 3. Metric Clusters */
+            html += sectionPanel('Metric Clusters', (data.clusters || []).length,
+                makeTable(
+                    ['Cluster ID', 'Metric Intent', 'Members', 'Confidence', 'Duplicates', 'Reports'],
+                    data.clusters,
+                    r => `<td><strong>${esc(r.cluster_id)}</strong></td>
+                          <td>${esc(r.metric_intent)}</td>
+                          <td>${esc(joinArr(r.members))}</td>
+                          <td>${typeof r.confidence_score === 'number' ? r.confidence_score.toFixed(2) : esc(r.confidence_score)}</td>
+                          <td>${esc(r.duplicate_count)}</td>
+                          <td>${esc(joinArr(r.reports))}</td>`
+                )
+            );
+
+            /* 4. Drift Findings */
+            html += sectionPanel('Drift Findings', (data.drift_findings || []).length,
+                makeTable(
+                    ['Finding ID', 'Cluster', 'KPI Name', 'Drift Type', 'Severity', 'Explanation', 'Impact', 'Recommendation'],
+                    data.drift_findings,
+                    r => `<td>${esc(r.finding_id)}</td>
+                          <td>${esc(r.cluster_id)}</td>
+                          <td>${esc(r.kpi_name)}</td>
+                          <td>${driftBadge(r.drift_type)}</td>
+                          <td>${typeof r.severity_score === 'number' ? r.severity_score.toFixed(1) : esc(r.severity_score)}</td>
+                          <td>${esc(r.explanation)}</td>
+                          <td>${esc(r.impact)}</td>
+                          <td>${esc(r.recommendation_text)}</td>`
+                )
+            );
+
+            /* 5. Recommendations Backlog */
+            html += sectionPanel('Recommendations Backlog', (data.recommendations || []).length,
+                makeTable(
+                    ['ID', 'Cluster', 'Area', 'Action', 'Priority', 'Score', 'Rationale', 'Target Layer', 'Impacted Reports'],
+                    data.recommendations,
+                    r => `<td>${esc(r.recommendation_id)}</td>
+                          <td>${esc(r.cluster_id)}</td>
+                          <td>${esc(r.area)}</td>
+                          <td>${esc(r.action_type)}</td>
+                          <td>${priorityBadge(r.priority_label)}</td>
+                          <td>${typeof r.priority_score === 'number' ? r.priority_score.toFixed(1) : esc(r.priority_score)}</td>
+                          <td>${esc(r.rationale)}</td>
+                          <td>${esc(r.target_layer)}</td>
+                          <td>${esc(joinArr(r.impacted_reports))}</td>`
+                )
+            );
+
+            /* 6. How to Read */
+            const howCards = (data.how_to_read || []).map(r =>
+                `<div class="how-to-card"><strong>${esc(r.section)}</strong><p>${esc(r.content)}</p></div>`
+            ).join('');
+            html += sectionPanel('How to Read', null,
+                `<div class="how-to-grid">${howCards || '<p class="empty-notice">No data.</p>'}</div>`
+            );
+
+            return html;
         }
     </script>
 </body>
