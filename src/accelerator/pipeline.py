@@ -5,7 +5,7 @@ import uuid
 from collections import defaultdict
 from dataclasses import asdict
 from datetime import datetime, timezone
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 from .models import (
     DriftFinding,
@@ -25,15 +25,95 @@ try:
 except ImportError:
     _USE_ADVANCED_CLUSTERING = False
 
+# Try to import structural similarity for graduated formula scoring
+try:
+    from .clustering import calculate_structural_similarity as _calc_struct_sim
+    _HAS_STRUCT_SIM = True
+except ImportError:
+    _HAS_STRUCT_SIM = False
+
+
+# ---------------------------------------------------------------------------
+# Fix 1: Graduated drift signal functions
+# ---------------------------------------------------------------------------
+
+def _graduated_filter_diff(members: List[MetricInstance]) -> float:
+    """Jaccard distance across all filter sets (0-100)."""
+    all_sets = [frozenset(m.filters) for m in members]
+    if len(all_sets) < 2:
+        return 0.0
+    union = set().union(*all_sets)
+    intersection = set.intersection(*[set(s) for s in all_sets])
+    if not union:
+        return 0.0
+    return round((1 - len(intersection) / len(union)) * 100, 2)
+
+
+def _graduated_join_diff(members: List[MetricInstance]) -> float:
+    """Proportion of unique join paths (0-100)."""
+    paths = [m.join_path_signature.lower().strip() for m in members]
+    unique = len(set(paths))
+    if unique <= 1:
+        return 0.0
+    return round((unique / len(paths)) * 100, 2)
+
+
+_GRAIN_ORDER = ["transaction", "day", "week", "month", "quarter", "year"]
+
+
+def _graduated_grain_diff(members: List[MetricInstance]) -> float:
+    """Grain proximity scoring (0-100); one step = 20 points."""
+    grains = [m.grain.lower().strip() for m in members]
+    unique = set(grains)
+    if len(unique) <= 1:
+        return 0.0
+    indices = [_GRAIN_ORDER.index(g) if g in _GRAIN_ORDER else 3 for g in unique]
+    spread = max(indices) - min(indices)
+    return min(round(spread * 20, 2), 100.0)
+
+
+def _graduated_formula_diff(members: List[MetricInstance]) -> float:
+    """Average pairwise structural dissimilarity (0-100); falls back to 100 if no parser."""
+    sigs = [m.expression_signature for m in members]
+    if len(set(sigs)) <= 1:
+        return 0.0
+    if not _HAS_STRUCT_SIM:
+        return 100.0  # binary fallback when clustering module unavailable
+    scores = []
+    for i in range(len(sigs)):
+        for j in range(i + 1, len(sigs)):
+            sim = _calc_struct_sim(sigs[i], sigs[j])
+            scores.append(1.0 - sim)
+    return round((sum(scores) / len(scores)) * 100, 2) if scores else 0.0
+
+
+# ---------------------------------------------------------------------------
+# Fix 2: Data-driven naive cluster confidence
+# ---------------------------------------------------------------------------
+
+def _naive_cluster_confidence(member_ids: List[str], metric_lookup: Dict[str, MetricInstance]) -> float:
+    """Compute confidence based on name/expression match ratio across cluster members."""
+    if len(member_ids) <= 1:
+        return 0.65
+    metrics = [metric_lookup[mid] for mid in member_ids if mid in metric_lookup]
+    names = len(set(m.metric_name.lower() for m in metrics))
+    exprs = len(set(m.expression_signature for m in metrics))
+    name_score = 1.0 if names == 1 else 0.5
+    expr_score = 1.0 if exprs == 1 else 0.5
+    return round(0.65 + 0.30 * (name_score * 0.5 + expr_score * 0.5), 4)
+
 
 def cluster_metrics(metrics: Iterable[MetricInstance]) -> List[MetricCluster]:
+    metric_list = list(metrics)
+    metric_lookup = {m.metric_id: m for m in metric_list}
+
     grouped: Dict[Tuple[str, str], List[str]] = defaultdict(list)
-    for metric in metrics:
+    for metric in metric_list:
         grouped[(metric.metric_name.lower(), metric.expression_signature)].append(metric.metric_id)
 
     clusters: List[MetricCluster] = []
     for idx, ((_name, _signature), members) in enumerate(grouped.items(), start=1):
-        confidence = 0.95 if len(members) > 1 else 0.65
+        confidence = _naive_cluster_confidence(members, metric_lookup)
         clusters.append(MetricCluster(cluster_id=f"CL-{idx:04d}", members=members, confidence_score=confidence))
     return clusters
 
@@ -47,17 +127,18 @@ def detect_drift(cluster: MetricCluster, metric_lookup: Dict[str, MetricInstance
     baseline = members[0]
     impacted_reports = sorted({m.report_id for m in members})
 
-    filter_diff = any(set(m.filters) != set(baseline.filters) for m in members[1:])
-    join_diff = any(m.join_path_signature != baseline.join_path_signature for m in members[1:])
-    grain_diff = any(m.grain != baseline.grain for m in members[1:])
-
+    # Binary existence checks — decide whether to create each finding type
+    filter_diff  = any(set(m.filters) != set(baseline.filters) for m in members[1:])
+    join_diff    = any(m.join_path_signature != baseline.join_path_signature for m in members[1:])
+    grain_diff   = any(m.grain != baseline.grain for m in members[1:])
     formula_diff = len({m.expression_signature for m in members}) > 1
 
+    # Graduated signals — actual magnitude of each difference (Fix 1)
     signals = DriftSignals(
-        formula_difference=100.0 if formula_diff else 0.0,
-        filter_difference=100.0 if filter_diff else 0.0,
-        join_difference=100.0 if join_diff else 0.0,
-        grain_mismatch=100.0 if grain_diff else 0.0,
+        formula_difference=_graduated_formula_diff(members),
+        filter_difference=_graduated_filter_diff(members),
+        join_difference=_graduated_join_diff(members),
+        grain_mismatch=_graduated_grain_diff(members),
     )
     severity = drift_severity_score(signals)
 
@@ -109,7 +190,7 @@ def detect_drift(cluster: MetricCluster, metric_lookup: Dict[str, MetricInstance
 
 
 # ---------------------------------------------------------------------------
-# Scoring helpers — replace hardcoded RecommendationInputs fields
+# Scoring helpers — computed RecommendationInputs fields
 # ---------------------------------------------------------------------------
 
 GOVERNED_PATTERNS = ["semantic_view", "semantic view", "vw_", "curated.", "gold."]
@@ -130,7 +211,7 @@ def _compute_regulatory_sensitivity(members: List[MetricInstance]) -> float:
     """Derive regulatory sensitivity from metric tags; unknown/absent → 50.0 (neutral)."""
     TAG_SCORES = {"high": 90.0, "medium": 60.0, "low": 30.0, "none": 10.0}
     scores = [TAG_SCORES.get((m.regulatory_tag or "").lower(), 50.0) for m in members]
-    return max(scores)  # most sensitive member drives the cluster score
+    return max(scores)
 
 
 def _compute_usage_frequency(
@@ -139,19 +220,19 @@ def _compute_usage_frequency(
     """Normalize cluster usage relative to the dataset maximum; no data → 50.0 (neutral)."""
     max_usage = max((m.usage_count or 0 for m in all_metrics), default=0) or 0
     if max_usage == 0:
-        return 50.0  # no usage data provided — neutral fallback
+        return 50.0
     cluster_usage = sum(m.usage_count or 0 for m in members)
     return min(100.0, round((cluster_usage / max_usage) * 100, 2))
 
 
 def _compute_complexity(members: List[MetricInstance]) -> float:
-    """Score structural complexity; higher filter count, source count, formula length → higher score."""
+    """Score structural complexity from filter count, source count, and formula length."""
     scores = []
     for m in members:
         score = 0.0
-        score += min(len(m.filters) * 15, 40)               # more filters → more complex
-        score += min(len(m.source_objects) * 10, 30)         # more source tables → more complex
-        score += min(len(m.expression_signature) / 5, 30)    # longer formula → more complex
+        score += min(len(m.filters) * 15, 40)
+        score += min(len(m.source_objects) * 10, 30)
+        score += min(len(m.expression_signature) / 5, 30)
         scores.append(min(score, 100.0))
     return round(max(scores), 2) if scores else 50.0
 
@@ -243,6 +324,20 @@ def _infer_definition(expression: str) -> str:
     return f"Computed from: {expression}"
 
 
+def _infer_risk_note(metric: MetricInstance) -> str:
+    """Generate a context-aware risk note from the metric's structural properties (Fix 5)."""
+    risks = []
+    if metric.source_objects and not any(
+        p in obj.lower() for obj in metric.source_objects for p in GOVERNED_PATTERNS
+    ):
+        risks.append("Ungoverned source layer")
+    if len(metric.filters) > 3:
+        risks.append("Complex filter logic")
+    if (metric.regulatory_tag or "").lower() == "high":
+        risks.append("Regulatory-sensitive")
+    return "; ".join(risks) if risks else "No risks identified"
+
+
 def _enrich_clusters(
     clusters: List[MetricCluster],
     metric_lookup: Dict[str, MetricInstance],
@@ -283,16 +378,23 @@ def _enrich_recommendations(
 
 
 def _build_report_inventory(metrics: List[MetricInstance]) -> List[dict]:
+    """Fix 4: use report_folder field; fall back to 'Unspecified' when absent."""
     report_datasets: Dict[str, set] = defaultdict(set)
     for m in metrics:
         report_datasets[m.report_id].add(m.dataset_id)
 
     inventory = []
     for report_id, datasets in sorted(report_datasets.items()):
+        first_metric = next((m for m in metrics if m.report_id == report_id), None)
+        folder = (
+            first_metric.report_folder
+            if first_metric and first_metric.report_folder
+            else "Unspecified"
+        )
         inventory.append({
             "report_id": report_id,
             "name": report_id.replace("_", " ").title(),
-            "folder": "Analytics",
+            "folder": folder,
             "owner": None,
             "last_modified": None,
             "dataset_count": len(datasets),
@@ -302,12 +404,17 @@ def _build_report_inventory(metrics: List[MetricInstance]) -> List[dict]:
 
 
 def _build_kpi_dictionary(metrics: List[MetricInstance]) -> List[dict]:
+    """Fix 5: replace hardcoded 'Review for standardization' with _infer_risk_note."""
     kpi_data: Dict[str, dict] = {}
     for m in metrics:
         key = m.metric_name.lower()
         if key not in kpi_data:
             primary_source = m.source_objects[0] if m.source_objects else "Unknown"
-            computed_layer = "Semantic Layer" if any("semantic" in obj.lower() for obj in m.source_objects) else "BI Layer"
+            computed_layer = (
+                "Semantic Layer"
+                if any("semantic" in obj.lower() for obj in m.source_objects)
+                else "BI Layer"
+            )
             kpi_data[key] = {
                 "kpi_name": m.metric_name,
                 "inferred_definition": _infer_definition(m.expression_signature),
@@ -315,14 +422,22 @@ def _build_kpi_dictionary(metrics: List[MetricInstance]) -> List[dict]:
                 "primary_source": primary_source,
                 "computed_in_layer": computed_layer,
                 "found_in_reports": set(),
-                "risk_notes": "Review for standardization",
+                "representative_metric": m,
             }
         kpi_data[key]["found_in_reports"].add(m.report_id)
 
     result = []
     for entry in kpi_data.values():
         reports = sorted(entry["found_in_reports"])
-        risk = "Multiple variants detected" if len(reports) > 1 else entry["risk_notes"]
+        base_risk = _infer_risk_note(entry["representative_metric"])
+        if len(reports) > 1:
+            risk = (
+                f"Multiple variants detected; {base_risk}"
+                if base_risk != "No risks identified"
+                else "Multiple variants detected"
+            )
+        else:
+            risk = base_risk
         result.append({
             "kpi_name": entry["kpi_name"],
             "inferred_definition": entry["inferred_definition"],
@@ -396,13 +511,11 @@ def run_analysis(metrics: Iterable[MetricInstance], use_advanced_clustering: boo
     metrics = list(metrics)
     metric_lookup = {m.metric_id: m for m in metrics}
 
-    # Use advanced AI clustering if available, else fall back to naive
     if use_advanced_clustering and _USE_ADVANCED_CLUSTERING:
         clusters = cluster_metrics_advanced(metrics)
     else:
         clusters = cluster_metrics(metrics)
 
-    # Enrich clusters before drift detection so reports list is populated
     clusters = _enrich_clusters(clusters, metric_lookup)
     clusters_by_id = {c.cluster_id: c for c in clusters}
 
@@ -412,7 +525,6 @@ def run_analysis(metrics: Iterable[MetricInstance], use_advanced_clustering: boo
     recommendations = build_recommendations(clusters, findings, metric_lookup, metrics)
     recommendations = _enrich_recommendations(recommendations, clusters_by_id)
 
-    # Executive Scorecard
     p1_count = sum(1 for r in recommendations if r.priority_label and r.priority_label.startswith("P1"))
     highest_severity = max((f.severity_score for f in findings), default=0.0)
     unique_datasets = {m.dataset_id for m in metrics}

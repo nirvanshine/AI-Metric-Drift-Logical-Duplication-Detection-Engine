@@ -57,6 +57,7 @@ class MetricInstance:
     embedding_vector: Optional[List[float]] = None
     regulatory_tag: Optional[str] = None   # "high" | "medium" | "low" | "none"
     usage_count: Optional[int] = None      # report views / executions
+    report_folder: Optional[str] = None    # e.g. "Finance", "Operations"
 
 
 @dataclass

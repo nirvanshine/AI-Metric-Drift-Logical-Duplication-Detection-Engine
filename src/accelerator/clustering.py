@@ -227,6 +227,8 @@ def _cosine_similarity(v1: np.ndarray, v2: np.ndarray) -> float:
 
 SIMILARITY_THRESHOLD = 0.85
 TOP_K = 10
+# Singletons: no pair comparison is possible, so assign a neutral baseline confidence
+SINGLETON_CONFIDENCE = 0.65
 
 
 def cluster_metrics_advanced(
@@ -305,7 +307,7 @@ def cluster_metrics_advanced(
         cluster_idx += 1
 
         confidence = (
-            sum(cluster_scores) / len(cluster_scores) if cluster_scores else 0.65
+            sum(cluster_scores) / len(cluster_scores) if cluster_scores else SINGLETON_CONFIDENCE
         )
 
         clusters.append(

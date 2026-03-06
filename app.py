@@ -57,6 +57,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         source_objects=m.get("source_objects", []),
                         regulatory_tag=m.get("regulatory_tag"),
                         usage_count=m.get("usage_count"),
+                        report_folder=m.get("report_folder"),
                     ))
 
                 result = run_analysis(metrics)
