@@ -55,6 +55,8 @@ class MetricInstance:
     source_objects: List[str]
     parameters_impacting_metric: List[str] = field(default_factory=list)
     embedding_vector: Optional[List[float]] = None
+    regulatory_tag: Optional[str] = None   # "high" | "medium" | "low" | "none"
+    usage_count: Optional[int] = None      # report views / executions
 
 
 @dataclass

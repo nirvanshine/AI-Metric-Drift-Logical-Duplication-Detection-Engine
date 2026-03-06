@@ -108,10 +108,59 @@ def detect_drift(cluster: MetricCluster, metric_lookup: Dict[str, MetricInstance
     return findings
 
 
+# ---------------------------------------------------------------------------
+# Scoring helpers — replace hardcoded RecommendationInputs fields
+# ---------------------------------------------------------------------------
+
+GOVERNED_PATTERNS = ["semantic_view", "semantic view", "vw_", "curated.", "gold."]
+
+
+def _detect_layer_violation(members: List[MetricInstance]) -> bool:
+    """A violation exists if ALL source objects lack any governed-layer indicator."""
+    all_sources = [obj.lower() for m in members for obj in m.source_objects]
+    if not all_sources:
+        return False
+    return not any(
+        any(pattern in src for pattern in GOVERNED_PATTERNS)
+        for src in all_sources
+    )
+
+
+def _compute_regulatory_sensitivity(members: List[MetricInstance]) -> float:
+    """Derive regulatory sensitivity from metric tags; unknown/absent → 50.0 (neutral)."""
+    TAG_SCORES = {"high": 90.0, "medium": 60.0, "low": 30.0, "none": 10.0}
+    scores = [TAG_SCORES.get((m.regulatory_tag or "").lower(), 50.0) for m in members]
+    return max(scores)  # most sensitive member drives the cluster score
+
+
+def _compute_usage_frequency(
+    members: List[MetricInstance], all_metrics: List[MetricInstance]
+) -> float:
+    """Normalize cluster usage relative to the dataset maximum; no data → 50.0 (neutral)."""
+    max_usage = max((m.usage_count or 0 for m in all_metrics), default=0) or 0
+    if max_usage == 0:
+        return 50.0  # no usage data provided — neutral fallback
+    cluster_usage = sum(m.usage_count or 0 for m in members)
+    return min(100.0, round((cluster_usage / max_usage) * 100, 2))
+
+
+def _compute_complexity(members: List[MetricInstance]) -> float:
+    """Score structural complexity; higher filter count, source count, formula length → higher score."""
+    scores = []
+    for m in members:
+        score = 0.0
+        score += min(len(m.filters) * 15, 40)               # more filters → more complex
+        score += min(len(m.source_objects) * 10, 30)         # more source tables → more complex
+        score += min(len(m.expression_signature) / 5, 30)    # longer formula → more complex
+        scores.append(min(score, 100.0))
+    return round(max(scores), 2) if scores else 50.0
+
+
 def build_recommendations(
     clusters: List[MetricCluster],
     findings: List[DriftFinding],
     metric_lookup: Dict[str, MetricInstance],
+    all_metrics: List[MetricInstance],
 ) -> List[Recommendation]:
     findings_by_cluster: Dict[str, List[DriftFinding]] = defaultdict(list)
     for finding in findings:
@@ -122,15 +171,15 @@ def build_recommendations(
         cluster_findings = findings_by_cluster.get(cluster.cluster_id, [])
         drift_severity = max((f.severity_score for f in cluster_findings), default=0.0)
         duplication_count = max(0, len(cluster.members) - 1)
-        layer_violation = any("semantic view" not in obj.lower() for mid in cluster.members for obj in metric_lookup[mid].source_objects)
+        members_data = [metric_lookup[mid] for mid in cluster.members if mid in metric_lookup]
 
         inputs = RecommendationInputs(
             drift_severity=drift_severity,
             duplication_count=duplication_count,
-            regulatory_sensitivity=50.0,
-            usage_frequency=60.0,
-            complexity=55.0,
-            layer_violation=layer_violation,
+            regulatory_sensitivity=_compute_regulatory_sensitivity(members_data),
+            usage_frequency=_compute_usage_frequency(members_data, all_metrics),
+            complexity=_compute_complexity(members_data),
+            layer_violation=_detect_layer_violation(members_data),
         )
         action = choose_action(inputs)
         output.append(
@@ -360,7 +409,7 @@ def run_analysis(metrics: Iterable[MetricInstance], use_advanced_clustering: boo
     findings = [finding for cluster in clusters for finding in detect_drift(cluster, metric_lookup)]
     findings = _enrich_findings(findings, clusters_by_id)
 
-    recommendations = build_recommendations(clusters, findings, metric_lookup)
+    recommendations = build_recommendations(clusters, findings, metric_lookup, metrics)
     recommendations = _enrich_recommendations(recommendations, clusters_by_id)
 
     # Executive Scorecard

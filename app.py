@@ -54,7 +54,9 @@ class SimpleHandler(BaseHTTPRequestHandler):
                         grain=m.get("grain", "unknown"),
                         filters=m.get("filters", []),
                         join_path_signature=m.get("join_path_signature", "unknown"),
-                        source_objects=m.get("source_objects", [])
+                        source_objects=m.get("source_objects", []),
+                        regulatory_tag=m.get("regulatory_tag"),
+                        usage_count=m.get("usage_count"),
                     ))
 
                 result = run_analysis(metrics)
