@@ -1,0 +1,1883 @@
+[
+  {
+    "metric_id": "MTR-8EC2CC3AED",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-F1EDA4D19A",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-FF3D0BE639",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-746016FCBD",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-E44A86FA6E",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "month",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-43FCEEF228",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-0DEF3AE84B",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-46EA20CD9A",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-DB9445604D",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-AB8273239F",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-AB5BD47A51",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-2747726C34",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-F1A6FD9718",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-B3DBD56CCD",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-4A75D0257E",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-3F013F7F84",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-36BBC038DA",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-B722F934F9",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-35787AE0CE",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-CC186924BC",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-BD313FC33A",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-F6790B8BEA",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-16C59B4BA0",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-AAA113A84A",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-C1E749DF86",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-931C80FDC0",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-9595832982",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-3DE7D24067",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-3BF708AD9D",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-92591C4348",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-0BB53B4810",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-3814ABE443",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-26DECB021A",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-DA8AF19B11",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-3CE38E03F6",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-DC084DA4B5",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-2519E538CA",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-BE489023D3",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-D596E219C8",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-6BE4AD0011",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-F132A4628A",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-1268203A8B",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-BDF8811CE2",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-E23240E813",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-B4E1F4B901",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-910F665CF0",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-C909864CD9",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-35356CA2FA",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-A302A7AADD",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-77EE98CB58",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-B5181B98A8",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-76A3980132",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-E675C69A84",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-43B19D3676",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-5CA6322015",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-8630739284",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-8810EE51B4",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-9AC0F5239F",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-C28B1FA6D0",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-07B0A318F4",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-D2CE79E50F",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-04C9C0E6EF",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-47B0A934A5",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-FDAD268AF6",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-CDA27AAA43",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-5D8889CD6F",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-0E43B9208C",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-7B12E294E8",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-0CD3F74D98",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-D32ABD232A",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-922343B7AE",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-3FF20D360D",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-6F7B67E29B",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-E34BAA3735",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-3D33D72913",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-02CF8333F9",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-9CE4E79956",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-339C94D7CB",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-B37713D2EA",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-92F564475A",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-E8424DD3A0",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-36B8569AB6",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-0F8697B124",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-C534221901",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-75EB3888CD",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-9DCF203108",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-C88B35D508",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-0943447A61",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-342C4C9724",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-228D71B6FF",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-401F3F90ED",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-050CE63944",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-533A3FB3CF",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-83F75DC465",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-DDE02A8CFA",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "AUM",
+    "expression_signature": "SUM(Fields!AUM.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-EFF79B109D",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Assets_Under_Management",
+    "expression_signature": "Sum(Fields!AUM.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-0085451428",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-4EA0F9C2C7",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-3A8C85D518",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-A4F3EFBE18",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-FB0D31AD82",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-5445B4D029",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-1B855F71E2",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-96F84889CB",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-9B52685F20",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-584A751173",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-8DBAA7F2DC",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "DataSet2",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-7C80ECC49A",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  },
+  {
+    "metric_id": "MTR-82E25B5683",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-C497D2DA2D",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "PnL",
+    "expression_signature": "Sum(Fields!PnL.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-B5FCDA4D23",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "DataSet1",
+    "metric_name": "Profit",
+    "expression_signature": "SUM(Fields!PnL.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-76F20269FB",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trade_Count",
+    "expression_signature": "Count(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-3B2D604DFA",
+    "report_id": "Compliance_Report_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Sales",
+    "expression_signature": "SUM(Fields!Revenue.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-72F1BA59E3",
+    "report_id": "Trading_Activity_SSRS",
+    "dataset_id": "SharedDataSet_B",
+    "metric_name": "Net_Sales",
+    "expression_signature": "IIF(IsNothing(Fields!Revenue.Value),0,Sum(Fields!Revenue.Value))",
+    "grain": "portfolio",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-16CD5ED8D6",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "fund",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "trades->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-415DF43FA9",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-81C0D93D61",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "SharedDataSet_A",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "pnl->positions->portfolios",
+    "source_objects": [
+      "DW.FACT_TRADES"
+    ]
+  },
+  {
+    "metric_id": "MTR-1666F47816",
+    "report_id": "Executive_KPI_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "Revenue",
+    "expression_signature": "Sum(Fields!Revenue.Value)",
+    "grain": "month",
+    "filters": [
+      "Parameters!StartDate.Value",
+      "Parameters!EndDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_PNL"
+    ]
+  },
+  {
+    "metric_id": "MTR-45B296F67C",
+    "report_id": "Performance_Report_SSRS",
+    "dataset_id": "Trades_DS",
+    "metric_name": "NAV",
+    "expression_signature": "Sum(Fields!NAV.Value)",
+    "grain": "day",
+    "filters": [
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "sales->regions",
+    "source_objects": [
+      "DW.FACT_NAV"
+    ]
+  },
+  {
+    "metric_id": "MTR-54A773C897",
+    "report_id": "Risk_Dashboard_SSRS",
+    "dataset_id": "PnL_DS",
+    "metric_name": "Trades",
+    "expression_signature": "COUNT(Fields!TradeId.Value)",
+    "grain": "trade",
+    "filters": [
+      "Parameters!PortfolioId.Value",
+      "Parameters!AsOfDate.Value"
+    ],
+    "join_path_signature": "nav->funds",
+    "source_objects": [
+      "DW.FACT_SALES"
+    ]
+  }
+]
