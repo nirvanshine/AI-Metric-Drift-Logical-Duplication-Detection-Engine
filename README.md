@@ -182,18 +182,37 @@ Example: ["raw.events"], ["dbo.FactSales"], ["sales_db.public.transactions"]
   }
 ]
 
-## Quick Start
+Here are the dependencies a user needs to install to run the project locally:
 
-Run tests:
+1. Python 3.7+
+The project uses built-in standard libraries (http.server, 
 
-```bash
-python -m unittest discover -s tests
-```
+json
+, dataclasses, datetime, uuid, unittest etc.) but relies on feature syntaxes like @dataclass and from __future__ import annotations, meaning it requires a relatively modern version of Python 3.
 
-Use in code:
+2. Third-Party Dependencies
+Depending on which parts of the project you intend to run, you will need to install the following via pip:
 
-```python
-from src.accelerator import run_analysis
-```
+numpy: Required for the core accelerator engine (
 
-See implementation notes in `docs/accelerator_blueprint.md`.
+src/accelerator/clustering.py
+). This is mandatory if you want to run the web app (
+
+app.py
+), the REST API, or the CLI demo (
+
+demo_run.py
+).
+pandas: Required only if you intend to run the 
+
+extract_excel.py
+ utility script.
+openpyxl: Required by pandas for reading and extracting data from Excel workbooks (the project includes a tmp_libs folder with openpyxl and its dependencies, but it's best to install it natively to your environment).
+You can install all necessary third-party dependencies with a single command:
+
+bash
+pip install numpy pandas openpyxl
+Once installed, you can start the local web application by simply running:
+
+bash
+python app.py
